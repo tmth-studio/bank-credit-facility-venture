@@ -1,0 +1,207 @@
+# Financial margin of safety — input model. A business bank's credit facility line (Case B), Path C mode 3, at C10.
+# At C10 (Function 3, R10 — the key input) PC-2 is added: levelled-line funding and the standby route. The pool's drawn balances
+# are funded by the pool's own credit balances (⚠ £50–100bn) at the measured deposit cost (⚠ 1.5–3.0%) under a funding term signed
+# by the asset and liability committee and read daily; the aggregate drawn book is capped at ⚠ 10% of the pool's credit balances
+# (G18 — binds at the worst corner only, a volume gate); a revolving master trust on the outcome ledger (WP-6) as its data tape is
+# documented before Stage 3 and maintained without issuance, opened when the transfer price exceeds its all-in cost (⚠ SONIA + 0.6–1.0%)
+# for two consecutive quarters. Floor effect: RC 2.02–5.04 → 2.07–5.22 (the route's upkeep ⚠ £0.3–0.6m a year, external); SC unrounded
+# 0.74 → 0.92 at the high corner (the route's set-up ⚠ £1–3m once), inside 0–1; PVC funding unchanged in figure (15–30), fixed in
+# reference; IC unchanged. Floor 55.09–107.47. The conventional R10 line (⚠ 1–3 — bureau data, a scoring vendor and aggregator feeds
+# bought to underwrite and monitor a conventional facility book) is removed. The price and the band are unchanged from C6. The
+# position-holding block (registry F3 row) names the four assumptions R10 carries, the HRS 5 · 6 · 6 with the design commitment
+# (4 at the conservative corner without it) and the re-test at the funding line's failure values — reported unsoftened.
+# At C9 (Function 3, R9 — the key resource) WP-6 is added: the outcome ledger and the calibration. Every daily limit is written
+# with the multiple in force and every funded event with its clearance, stall or write-off, by cohort; once a year the base multiple
+# by flow band and the seasoning schedule are re-fitted from the ledger alone, validated on a held-out cohort (SS1/23) and approved
+# at the release-track sitting. No external score enters the rule. Floor effect: computing 2.02–5.11 → 2.02–5.12 (the calibration run
+# ⚠ £15–50k and the ledger storage ⚠ £2–8k a year); SC unrounded 0.72 → 0.74 at the high corner (the ledger build ⚠ £100–300k once),
+# inside 0–1. RC and IC unchanged. The conventional R9 line (a bureau score licence, a scorecard vendor, a data-science hire) is ⚠ 0:
+# nothing to remove. The price and the band are unchanged from C6. The position-holding block (registry F3 row) names the three
+# assumptions R9 carries, the FIS 5 · 6 · 7 and the re-test at the loss band's failure value — reported unsoftened.
+# At C8 (Function 3, R8 — the store of value) WP-1 is amended to v2, the seasoned limit: the rule's multiple of flow rises on a
+# published schedule with the account's own cleared events (two-thirds of the uplift by ⚠ 12 cleared events, full by ⚠ 36 months,
+# average uplift ⚠ 15–30%). The only floor effect is capital on the larger undrawn commitment: undrawn per £1 drawn ⚠ 1.5–2.5 → 1.9–3.6,
+# IC undrawn 1.6–3.4 → 2.05–4.86, IC 12–17 → 13–18 (12.85–18.36 unrounded). Exceptions: the seasoning queries sit inside the C5 headroom
+# at the central corner and need a 15th handler at the high corner (inside the rounded 3.00–8.13 band). SC: the seasoning build ⚠ £20–40k
+# inside the band. The conventional R8 line (⚠ 5–15 — loyalty pricing, exit fees, product tie-ins, a retention desk) is removed.
+# The price and the band are unchanged from C6. The position-holding block (registry F3 row) names the assumptions R8 carries and their failure values.
+# At C7 the Partner track is resolved by PP-1 — the released standing limit published as the account's pre-agreed credit line
+# in the balance response the bank already serves to every account-information reader (Open Banking standard), and the
+# receipt splits as transaction lines. No partner is paid; the conventional R7 line (⚠ 6–35 — broker commission, referral
+# fees, partner marketing, a partner desk) is removed. R7 adds the credit-line element inside computing — ⚠ 0.00–0.01 per
+# £1,000 — and two one-offs (⚠ £50–100k) inside the SC band. The price and the band are unchanged from C6.
+# At C6 the price is set: PC-1 is resolved from a condition to the charge — 14.0% simple a year on the daily drawn balance,
+# no fee, accrued daily and collected from receipts as the first slice of the receipts share (WP-3 amended). The price sits
+# inside the C2 ceiling band as a surplus fraction of 0.933 (140 ÷ 150); the reporting convention of 0.95 (C4, C5) is replaced
+# by the set price from this file on; the band 0.90–0.95 (135–142.5) is the pricing committee's room. R6 adds the accrual
+# ledger inside computing — ⚠ 0.00–0.01 per £1,000; the conventional R6 line is nil (RD-030 books no cost against the price
+# structure). The KMC band's high corner (300) still multiplies through to the script's best-corner figure; that figure is an
+# artefact of the band — the customer on a £300 tariff pays 140 too — and the verifier reports the best corner at the set price by hand.
+# Every ⚠ figure is Tier 4 until the insider corrects it. The bank is not named. No internal figure is used.
+venture: Business bank credit facility line (Case B)
+state: at-C10
+date: 2026-09-21
+
+bounding:
+  currency: GBP
+  unit: 1000 of average drawn balance
+  period: year
+  scale_state: at-scale
+
+derived_from:
+  operating_model: bank-credit-facility-aom-v10-2026-09-21.md
+  customer_model: bank-credit-facility-ctm-v10-2026-09-21.md
+
+gate: per_requirement
+
+cost_floor:
+  layers:
+    pvc:
+      band: {low: 40.02, high: 83.25}
+      tier: T4
+      unit: GBP per 1000 of average drawn balance
+      period: year
+      scale_state: at-scale
+      basis: activity
+      source: AOM v3 section 6 (carried from v2) — funding from the account line's deposits ⚠ 1.5–3.0% (Bank Rate 4.0% from August 2025, FACT) = 15–30; expected loss on a flow-underwritten pool ⚠ 2.0–4.0% = 20–40 (FinRegLab 2019 and 2025; the level is ⚠; the migrated pool is an observed-conduct pool and the band is held, not lowered); computing and payments ⚠ 2–5 (the saving statement adds ⚠ 0.003); exceptions and write-off handling ⚠ 3–8 (2.3 cells ⚠ 1.8–2.4m ÷ ⚠ 3.4–5.7bn = 0.32–0.71, plus write-off administration ⚠ 3–7). C4 (AOM v4 3a, 3b, 3f) — computing 2.01–5.07 — the limit history (CP-2) adds ⚠ £76–228k a year = ⚠ 0.01–0.07; exceptions 3.00–8.09 — the limit-query handlers add ⚠ 0.00–0.09 (⚠ 3,330–10,000 queries per cell at 0.25 hours; the cell is 13 handlers, band 12–14, at ⚠ 1,400–1,600 productive hours). Funding and expected loss unchanged. Two decimals carried so the R4 addition is visible against the ⚠ £8 cap; C5 — the funded-event notice adds ⚠ 0.00–0.02 to computing (AOM v5 3a) and the funding-query handlers add ⚠ 0.00–0.04 to exceptions (AOM v5 3b) — computing 2.02–5.09, exceptions 3.00–8.13, PVC 40.02–83.22; C6 — the accrual ledger (⚠ 83m lines a year at ⚠ £0.0001, AOM v6 3a) — computing 2.02–5.10, exceptions 3.00–8.13 (charge queries inside the C5 headroom), PVC 40.02–83.23; C7 — the pre-agreed credit-line element served in ⚠ 0.50–0.78bn balance calls a year at ⚠ £0.00001 (AOM v7 3a) — computing 2.02–5.11, exceptions 3.00–8.13 (display queries ⚠ 37–175 hours per cell inside the C5 headroom, AOM v7 3b), PVC 40.02–83.24; C8 — the seasoning field read and the cleared event (⚠ £1–3k a year, AOM v8 3a) — computing unchanged 2.02–5.11; exceptions 3.00–8.13 (seasoning queries ⚠ 125–375 hours per cell inside the C5 headroom at the central corner; the 15th handler at the high corner adds 0.02, inside the rounded band; AOM v8 3b), PVC 40.02–83.24; C9 — the outcome row inside the daily recompute (storage ⚠ £2–8k) and the yearly calibration run (⚠ 100–200 hours inside the engine team + compute ⚠ £5–30k = ⚠ £15–50k a year; AOM v9 3a, 3j) — computing 2.02–5.12; exceptions unchanged (no new query class — a schedule change is answered by the C8 script); expected loss ⚠ 2.0–4.0% held — from C9 the band is what the calibration keeps the pool inside (position_holding.loss_band); PVC 40.02–83.25; C10 — funding unchanged in figure (15–30) and fixed in reference — the measured deposit cost under the funding term from the pool's own credit balances (PC-2; position_holding.funding_at_bank_rate, funding_at_market); computing +0.00 (the daily price is one line in an existing computation; the tape is the calibration's monthly cut, ⚠ £1–3k); PVC 40.02–83.25 unchanged
+    rc:
+      band: {low: 2.07, high: 5.22}
+      tier: T4
+      unit: GBP per 1000 of average drawn balance
+      period: year
+      scale_state: at-scale
+      basis: activity
+      source: AOM v4 3c — limit engine and data team ⚠ 25 people 3–4m, model risk ⚠ 10 people 1.5–2m, product, conduct and compliance ⚠ 13 people 1.3–1.95m (two added at C2; one added at C4 — the conduct reviewer who signs the limit-history display as a financial promotion template under CONC 3.3.1R and reviews it yearly), pricing committee no new people, technology run ⚠ 1–3m, fraud allocation ⚠ 0.5–2m = ⚠ 7.3–12.95m a year (the exception cells sit in PVC), divided by a drawn book of ⚠ 3.4–5.7bn = 1.28–3.81, carried at the C1 band plus the C4 addition of ⚠ 0.02–0.04; C10 (AOM v10 3c, 3k) — the standby route's upkeep without issuance ⚠ 0.3–0.6m a year (administrator, trustee, legal refresh; T2 from published programme fee schedules; threshold ⚠ 1.0m) ÷ 3.4–5.7bn = +0.05–0.18; treasury's ⚠ 100–200 hours and the committee's ⚠ 30–60 hours sit inside existing people; RC 2.07–5.22
+    sc:
+      band: {low: 0.0, high: 1.0}
+      tier: T4
+      unit: GBP per 1000 of average drawn balance
+      period: year
+      scale_state: at-scale
+      basis: activity
+      source: AOM v4 3e (carried from v3) — the scaling path as one-off costed activities. Back-test and independent validation ⚠ 0.3–0.8m (engine ⚠ 1,500–3,000 hours, model risk ⚠ 800–1,500 hours, SS1/23 Principle 4); migration ⚠ 0.3–0.85m (notices ⚠ 0.1–0.5m plus ⚠ 5,300–8,200 handler hours, carried by number from C2); three stage readings ⚠ 0.045–0.135m; the overlay's carrying cost ⚠ 0–10.4m (Stage 1 ⚠ 0–19m for 12 months, two replicas ⚠ 0–50m for 6 months each, at ⚠ 12–15% cost of equity). Plus the term drafting ⚠ 0.015–0.03m (C5), the representative example ⚠ 0.01–0.02m (C6) and, at C7, the credit-line element's population rule ⚠ 0.04–0.08m and the conformance test with six counterparties ⚠ 0.01–0.02m (AOM v7 3e); at C8 the seasoning build ⚠ 0.02–0.04m (AOM v8 3e); at C9 the outcome ledger's two fields and the calibration run ⚠ 0.10–0.30m (⚠ 1,000–2,000 hours at ⚠ £100/h, AOM v9 3e); at C10 the standby route's set-up ⚠ 1–3m (vehicle, programme documents, first tape, arranger; T2 from public programme budgets) and the funding term's signature ⚠ 0.001–0.003m (AOM v10 3e). Total ⚠ 1.84–15.59m one-off, amortised over 5 years (the runner's call; MLR 2017 reg. 40 retention and the ⚠ 27–42 month path both sit inside it) over ⚠ 3.4–5.7bn drawn = 0.07–0.92 (C10; was 0.03–0.74 at C9), rounded up to 0–1. Lending capital for the replicas (⚠ 0.31–0.56bn) is capital held, not a cost; the engine build is a roadmap cost the bank carries either way (C1)
+    ic:
+      band: {low: 13.0, high: 18.0}
+      tier: T4
+      unit: GBP per 1000 of average drawn balance
+      period: year
+      scale_state: at-scale
+      basis: activity
+      source: AOM v4 section 6 (carried from v2) — regulatory capital on the drawn balance, standardised approach, regulatory retail SME risk weight 75% (FACT, CRR Art. 123) x ⚠ 12% total capital ratio x ⚠ 12–15% cost of equity = 10.8–13.5; plus capital on the undrawn limit, ⚠ 1.5–2.5 of undrawn per 1 drawn x 10% credit conversion factor under Basel 3.1 (PRA PS9/24, from 1 January 2027) x 75% x 12% x 12–15% = 1.6–3.4; rounded to 12–17. An overdraft limit already carried this treatment; migration adds nothing; C8 (AOM v8 section 6) — the seasoned limit raises undrawn per 1 drawn to ⚠ 1.9–3.6 (limit-to-drawn ⚠ 2.5–3.5 × uplift 1.15–1.30, less the drawn 1) = 1.9–3.6 x 10% x 75% x 12% x 12–15% = 2.05–4.86; IC unrounded 12.85–18.36, rounded 13–18; the R8 addition 0.43–1.48 unrounded, 1.00 rounded; threshold — an average uplift above ⚠ 38% takes the addition past the remaining cap room at the high corner; convergence — the first replica's undrawn-to-drawn ratio at 24 months; unchanged at C9 (the uplift's figures are fitted at the first calibration run); unchanged at C10 — no exposure change; no significant-risk-transfer relief sought on the route
+
+price_ceiling:
+  kmc:
+    band: {low: 150.0, high: 300.0}
+    tier: T3
+    unit: GBP per 1000 of average drawn balance
+    period: year
+    scale_state: at-scale
+    source: TAM data object v2, KMC-OD-STD-TARIFF — the annual money cost of a standard-tariff business overdraft on the drawn balance. Low corner T1 — published representative EARs for unsecured business overdrafts up to £25,000, 15.62% (Lloyds Bank; Bank of Scotland) and 14.54% (HSBC UK), product pages read 21 September 2026; fees ⚠ 1–2% of the limit a year at 47% utilisation (UK Finance BFR 2025 Q3) put the representative customer at ⚠ 16.5–19.6% all-in. High corner T4 — the top of the tariff for the highest-risk band and the rate non-bank receipts-share lenders charge (C1 record, principal's review). Source correction — the C2 run note's attribution of the band to the government's call for evidence was unsupported; the government response (DBT and HM Treasury, 4 December 2025) carries no rate figure
+  customer_surplus_fraction:
+    value: 0.933
+    band: {low: 0.90, high: 0.95}
+    tier: T4
+    source: >-
+      C6 — the set price. 0.933 = 140 ÷ 150: the charge is 14.0% simple a year on the daily drawn balance, £140 per
+      £1,000 drawn a year, a runner's call with logic (C6 record, SR4) — below the lowest published standard-tariff EAR
+      (14.54%, HSBC; 15.62% Lloyds Bank / Bank of Scotland) with no fee, and 5.66 above the operating bar (134.34 at C10). The band
+      0.90–0.95 (135–142.5) is the pricing committee's room, the low corner inherited from C4 (the CMA 2016 non-switching
+      reading) and the high corner the C4 convention. Threshold: below 0.896 (13.43%) the worst-corner margin falls under
+      the 25% gate (C10; was 0.894 at C9); above 0.967 (14.5%) the rate exceeds HSBC's EAR and the "lower for every migrated customer" claim fails.
+      Convergence: Stage 1 acceptance with "the rate" as a decline reason (> ⚠ 30% moves the rate toward the band's low end).
+      The three points of the band are reported side by side in the verifier file
+# The operating bar of the carrying check (challenge skill, section 8): the floor's high corner × 1.25.
+# Fixed-number form; it does not read the ceiling. The capital bar (PCO parameters ÷ drawn book, 26.05–43.68) is
+# lower than this at every corner, so the operating bar is the binding bar; it is reported in the verifier by hand.
+# Cap line (RD-030): conventional R4 line ⚠ 2–8, R5 line ⚠ 1–2, R7 line ⚠ 6–35, R8 line ⚠ 5–15 and R10 line ⚠ 1–3 removed; R6 and R9 lines nil; R4 additions ⚠ 0.03–0.20, R5 additions ⚠ 0.02–0.06,
+# R6 additions ⚠ 0.00–0.01, R7 additions ⚠ 0.00–0.01, R8 additions ⚠ 1.00 rounded (0.45–1.50 unrounded), R9 additions ⚠ 0.01–0.03, R10 additions ⚠ 0.05–0.18 rounded (0.09–0.36 unrounded); cumulative through R10 ⚠ 1.10–1.47 rounded (0.60–2.17 unrounded); remaining at the high corner ⚠ 6.53. The cap itself is ⚠ £2.00 at a surplus fraction of 0.90, £8.00 at 0.95, £14.00 at 1.00.
+required_price:
+  amount: 134.34
+  unit: GBP per 1000 of average drawn balance
+  period: year
+  scale_state: at-scale
+  derived_from: [cost_floor, required_profit]
+  formula: cost floor high corner 107.47 x 1.25 (operating cost plus a 25% required margin on cost)
+  source: challenge skill section 8, carrying check, operating bar = floor x 1.25; PCO capital bar (bank-deposits-lending-pco-v1-2026-09-18.md, parameters) = £148.5m ÷ £3.4–5.7bn = 26.05–43.68, not binding
+
+component_set_at_fmos:
+  - WP-1 (amended C8 — v2, the seasoned limit: the multiple rises on the published schedule with the account's cleared events)
+  - WP-2 (amended C5 — default funding on an accepted term; draw ahead retained; switch-off)
+  - WP-3 (amended C6 — the charge-first split)
+  - WP-4
+  - WP-5
+  - WP-6 (new at C9 — the outcome ledger and the calibration: the rule's parameters re-fitted yearly from the pool's own outcomes; held-out cohort; no external score)
+  - CP-1 (amended C2, C4, C5 and C6 — the year's charge as one figure; the representative example)
+  - CP-2 (new at C4 — the limit as its own verifiable history, placed at the shortfall; amended C8 — the seasoning line)
+  - PC-1 (resolved C6 — the charge, 14.0% simple a year on the daily drawn balance, no fee, collected from receipts)
+  - PC-2 (new at C10 — levelled-line funding and the standby route: the pool's drawn balances funded by the pool's own credit balances at the measured deposit cost under a signed term; capped at ⚠ 10% of the balances; a revolving master trust on the outcome ledger maintained without issuance)
+  - PP-1 (new at C7 — the published limit; the released standing limit as the account's pre-agreed credit line in the balance response; the receipt splits as transaction lines; no partner paid)
+
+conventional_additions:
+  cap: {value: 8.0, unit: GBP per 1000 of average drawn balance, period: year, source: counterfactual RD-030, high corner at a surplus fraction of 0.95}
+  lines:
+    - {requirement: R4, conventional_line: {low: 2.0, high: 8.0}, removed: true, added: {low: 0.03, high: 0.20}}
+    - {requirement: R5, conventional_line: {low: 1.0, high: 2.0}, removed: true, added: {low: 0.02, high: 0.06}}
+    - {requirement: R6, conventional_line: {low: 0.0, high: 0.0}, removed: false, added: {low: 0.00, high: 0.01}}
+    - {requirement: R7, conventional_line: {low: 6.0, high: 35.0}, removed: true, added: {low: 0.00, high: 0.01}}
+    - {requirement: R8, conventional_line: {low: 5.0, high: 15.0}, removed: true, added: {low: 1.00, high: 1.00}}  # rounded IC step; unrounded 0.45–1.50
+    - {requirement: R9, conventional_line: {low: 0.0, high: 0.0}, removed: false, added: {low: 0.01, high: 0.03}}  # nothing to remove — the rule never carried an external score
+    - {requirement: R10, conventional_line: {low: 1.0, high: 3.0}, removed: true, added: {low: 0.05, high: 0.18}}  # unrounded 0.09–0.36; the bureau, scoring and aggregator feeds a conventional book buys
+  cumulative: {low: 1.10, high: 1.47}   # unrounded 0.60–2.17
+  remaining_high_corner: 6.53
+
+# Position-holding assumptions (registry F3 row) — every model assumption that depends on R10, with its failure value as a band.
+# The HRS passes at every corner with the design commitment, so the registry row does not require the verifier to re-test; the verifier r10
+# re-tests regardless, because the funding line is the largest supplier input and its failure values take the margin below the gate,
+# and reports the result unsoftened. The C9 block (FIS 5 · 6 · 7; loss_band, uplift_fitted, validation_external) is carried in the at-C9 file;
+# the loss band is re-tested at the C10 floor in the verifier r10 regardless.
+position_holding:
+  requirement: R10
+  barrier_score:
+    name: HRS
+    conservative: 5
+    central: 6
+    optimistic: 6
+    conservative_without_commitment: 4
+    threshold_pass: 5
+    threshold_ncr: 3
+    terms: "asset ownership 2 / 2 / 2 (the pool's balances are the bank's own liabilities); alternative availability 1 / 2 / 2 (the master trust at a price that fails the margin; a warehouse line beside it at central); replacement time 1 (12–18 months from a standing start) / 2 / 2 (under 12 months with the route documented and the tape maintained) — the runner's decomposition; the registry defines the thresholds only"
+    design_commitment: "the tape produced monthly from WP-6 from Stage 1; the programme documents drafted before Stage 3 and refreshed yearly; the cap (G18) keeps the route's opening size under ⚠ £1bn at the worst corner; the trigger a standing quarterly review — takes the conservative corner from 4 to 5"
+    verdict: "PASS at every corner with the design commitment — the conservative corner is one point above the line; 4 (between NCR and pass) without it"
+  assumptions:
+    - name: funding_at_bank_rate
+      holds_because: "R10 — the line is funded inside its pool under a signed term at the measured deposit cost; a transfer-price convention at the policy rate cannot be applied to it"
+      value: {low: 1.5, high: 3.0, unit: percent a year on the drawn book}
+      failure_value: {low: 4.0, high: 4.0}
+      effect_at_failure: "PVC funding 15–30 → 40; floor high 107.47 → 117.47 (Bank Rate 4.0% FACT; the convention T4)"
+      in_model: [pvc]
+    - name: funding_at_market
+      holds_because: "R10 — the standby route is the alternative when the pool's price is overridden; it holds existence, not margin"
+      value: {low: 1.5, high: 3.0, unit: percent a year on the drawn book}
+      failure_value: {low: 4.6, high: 5.0}
+      effect_at_failure: "PVC funding 15–30 → 46–50; floor high 107.47 → 123.47–127.47 (SONIA + 0.6–1.0% all-in, T2)"
+      in_model: [pvc]
+    - name: route_running_cost
+      holds_because: "R10 — the route is maintained without issuance"
+      value: {low: 0.3, high: 0.6, unit: GBP million a year}
+      failure_value: {low: 1.0, high: 2.0, unit: GBP million a year, the route opened and kept open — rating, servicing reports, note administration}
+      effect_at_failure: "RC 2.07–5.22 → 2.20–5.63 (+0.18–0.59 at the corners; the floor high uses the high corner's increment on the high book: +0.41 at £5.7bn → 107.88)"
+      in_model: [rc]
+    - name: cap_binds
+      holds_because: "R10 — the cap holds the drawn book at or under ⚠ 10% of the pool's credit balances"
+      value: {low: 3.4, high: 11.4, unit: percent of the pool's credit balances used}
+      failure_value: {low: 20.0, high: 40.0, unit: percent fall in the pool's credit balances}
+      effect_at_failure: "the cap binds at ⚠ £3.0–4.0bn; the per-£1,000 floor is unchanged; a volume effect read in the fin-sim against the PCO objective"
+      in_model: [volume]
+  re_test_at_failure:
+    funding_at_bank_rate: {floor_high: 117.47, margin_at_140: 0.192, margin_at_135: 0.149, verdict: BORDERLINE at 140 — FAIL at 135}
+    funding_at_market:
+      - {funding_rate_percent: 4.6, floor_high: 123.47, margin_at_140: 0.134, margin_at_135: 0.093, verdict: FAIL}
+      - {funding_rate_percent: 5.0, floor_high: 127.47, margin_at_140: 0.098, margin_at_135: 0.059, verdict: FAIL}
+    route_running_cost: {floor_high: 107.88, margin_at_140: 0.298, verdict: PASS}
+    cap_binds: {floor_high: 107.47, margin_at_140: 0.303, verdict: PASS — volume effect only}
+    loss_band_at_c10_floor:
+      - {loss_rate_percent: 4.5, floor_high: 112.47, margin_at_140: 0.245, margin_at_135: 0.200, verdict: BORDERLINE}
+      - {loss_rate_percent: 5.0, floor_high: 117.47, margin_at_140: 0.192, margin_at_135: 0.149, verdict: BORDERLINE}
+      - {loss_rate_percent: 6.0, floor_high: 127.47, margin_at_140: 0.098, margin_at_135: 0.059, verdict: FAIL}
+    reading: "the margin depends on R10 holding the funding line at the pool's deposit cost — at Bank Rate the design is BORDERLINE at the set price and FAIL at the band's low end; at the market's price it is FAIL at every point of the band; the market route holds the venture's existence, not its margin; recorded as a design finding in the C10 record, not softened"

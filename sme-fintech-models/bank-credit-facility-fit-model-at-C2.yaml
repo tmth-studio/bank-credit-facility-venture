@@ -1,0 +1,73 @@
+# Financial margin of safety — input model. A business bank's credit facility line (Case B), Path C mode 3, at C2.
+# At C2 the price ceiling is the R2 key monetizable cost: the standard-tariff overdraft cash outflow the selected
+# customer pays today (TAM data object v2, KMC-OD-STD-TARIFF). The C1 ceiling (7.5–12% paid on the whole book) is
+# superseded for the selected customer and recorded in the verifier for the VA-103 re-verification.
+# Every ⚠ figure is Tier 4 until the insider corrects it. The bank is not named. No internal figure is used.
+venture: Business bank credit facility line (Case B)
+state: at-C2
+date: 2026-09-21
+
+bounding:
+  currency: GBP
+  unit: 1000 of average drawn balance
+  period: year
+  scale_state: at-scale
+
+derived_from:
+  operating_model: bank-credit-facility-aom-v2-2026-09-21.md
+  customer_model: bank-credit-facility-ctm-v2-2026-09-21.md
+
+gate: per_requirement
+
+cost_floor:
+  layers:
+    pvc:
+      band: {low: 40.0, high: 83.0}
+      tier: T4
+      unit: GBP per 1000 of average drawn balance
+      period: year
+      scale_state: at-scale
+      basis: activity
+      source: AOM v2 section 6 — funding from the account line's deposits ⚠ 1.5–3.0% (Bank Rate 4.0% from August 2025, FACT) = 15–30; expected loss on a flow-underwritten pool ⚠ 2.0–4.0% = 20–40 (FinRegLab 2019 and 2025; the level is ⚠; the migrated pool is an observed-conduct pool and the band is held, not lowered); computing and payments ⚠ 2–5 (the saving statement adds ⚠ 0.003); exceptions and write-off handling ⚠ 3–8 (2.3 cells ⚠ 1.8–2.4m ÷ ⚠ 3.4–5.7bn = 0.32–0.71, plus write-off administration ⚠ 3–7). Unchanged from C1 — R2 adds no annual line that survives rounding
+    rc:
+      band: {low: 2.0, high: 5.0}
+      tier: T4
+      unit: GBP per 1000 of average drawn balance
+      period: year
+      scale_state: at-scale
+      basis: activity
+      source: AOM v2 3c — limit engine and data team ⚠ 25 people 3–4m, model risk ⚠ 10 people 1.5–2m, product, conduct and compliance ⚠ 12 people 1.2–1.8m (two added at C2 for the migration agreements and the statement's conduct standard), pricing committee no new people, technology run ⚠ 1–3m, fraud allocation ⚠ 0.5–2m = ⚠ 7.2–12.8m a year (the v1 double count of the exception cells removed; they sit in PVC), divided by a drawn book of ⚠ 3.4–5.7bn = 1.26–3.76, rounded to the C1 band
+    sc:
+      not_designed_until: C3
+    ic:
+      band: {low: 12.0, high: 17.0}
+      tier: T4
+      unit: GBP per 1000 of average drawn balance
+      period: year
+      scale_state: at-scale
+      basis: activity
+      source: AOM v2 section 6 — regulatory capital on the drawn balance, standardised approach, regulatory retail SME risk weight 75% (FACT, CRR Art. 123) x ⚠ 12% total capital ratio x ⚠ 12–15% cost of equity = 10.8–13.5; plus capital on the undrawn limit, ⚠ 1.5–2.5 of undrawn per 1 drawn x 10% credit conversion factor under Basel 3.1 (PRA PS9/24, from 1 January 2027) x 75% x 12% x 12–15% = 1.6–3.4; rounded to 12–17. An overdraft limit already carried this treatment; migration adds nothing
+
+price_ceiling:
+  kmc:
+    band: {low: 150.0, high: 300.0}
+    tier: T3
+    unit: GBP per 1000 of average drawn balance
+    period: year
+    scale_state: at-scale
+    source: TAM data object v2, KMC-OD-STD-TARIFF — the annual money cost of a standard-tariff business overdraft on the drawn balance. Low corner T1 — published representative EARs for unsecured business overdrafts up to £25,000, 15.62% (Lloyds Bank; Bank of Scotland) and 14.54% (HSBC UK), product pages read 21 September 2026; fees ⚠ 1–2% of the limit a year at 47% utilisation (UK Finance BFR 2025 Q3) put the representative customer at ⚠ 16.5–19.6% all-in. High corner T4 — the top of the tariff for the highest-risk band and the rate non-bank receipts-share lenders charge (C1 record, principal's review). Source correction — the C2 run note's attribution of the band to the government's call for evidence was unsupported; the government response (DBT and HM Treasury, 4 December 2025) carries no rate figure
+  customer_surplus_fraction:
+    value: 0.95
+    source: the ceiling is a cash outflow the customer pays today, by existence. The checker requires a share strictly below 1, so the fee element of the tariff (⚠ 1–2% of the limit a year, the part most often waived at renewal) is discounted by a twentieth. The undiscounted figure is reported by hand beside the checker's output in the verifier file, as at C1
+
+# The operating bar of the carrying check (challenge skill, section 8): the floor's high corner × 1.25.
+# Fixed-number form; it does not read the ceiling. The capital bar (PCO parameters ÷ drawn book, 26.05–43.68) is
+# lower than this at every corner, so the operating bar is the binding bar; it is reported in the verifier by hand.
+required_price:
+  amount: 131.25
+  unit: GBP per 1000 of average drawn balance
+  period: year
+  scale_state: at-scale
+  derived_from: [cost_floor, required_profit]
+  formula: cost floor high corner 105.0 x 1.25 (operating cost plus a 25% required margin on cost)
+  source: challenge skill section 8, carrying check, operating bar = floor x 1.25; PCO capital bar (bank-deposits-lending-pco-v1-2026-09-18.md, parameters) = £148.5m ÷ £3.4–5.7bn = 26.05–43.68, not binding

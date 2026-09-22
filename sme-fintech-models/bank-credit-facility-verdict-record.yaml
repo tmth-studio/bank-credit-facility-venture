@@ -1,0 +1,58 @@
+# Verdict record — business bank credit facility line (Case B), Path C mode 3.
+# One per venture. Every requirement from R1 up to the current challenge, in order.
+# Written 21 September 2026 at C5 by the runner; extended at each later challenge.
+# Every verdict is PROVISIONAL because the venture is mode 3 (runner-drafted, object-after) and
+# every load-bearing input is a Tier 4 band until the insider corrects it. The bank is not named.
+venture: Business bank credit facility line (Case B)
+date: 2026-09-21
+
+requirements:
+  R1:
+    verdict: PROVISIONAL
+    covers: C1 to C1
+    artefact: bank-credit-facility-fit-verifier-r1-2026-09-18.md
+  R2:
+    verdict: PROVISIONAL
+    covers: C1 to C2
+    artefact: bank-credit-facility-fit-verifier-r2-2026-09-21.md
+    repairs: none
+  R3:
+    verdict: PROVISIONAL
+    covers: C1 to C3
+    artefact: bank-credit-facility-fit-verifier-r3-2026-09-21.md
+    repairs: none
+  R4:
+    verdict: PROVISIONAL
+    covers: C1 to C4
+    artefact: bank-credit-facility-fit-verifier-r4-2026-09-21.md
+    repairs: none
+  R5:
+    verdict: PROVISIONAL
+    covers: C1 to C5
+    artefact: bank-credit-facility-fit-verifier-r5-2026-09-21.md
+    repairs: none
+  R6:
+    verdict: PROVISIONAL
+    covers: C1 to C6
+    artefact: bank-credit-facility-fit-verifier-r6-2026-09-21.md
+    repairs: none
+  R7:
+    verdict: PROVISIONAL
+    covers: C1 to C7
+    artefact: bank-credit-facility-fit-verifier-r7-2026-09-21.md
+    repairs: none
+  R8:
+    verdict: PROVISIONAL
+    covers: C1 to C8
+    artefact: bank-credit-facility-fit-verifier-r8-2026-09-21.md
+    repairs: none
+  R9:
+    verdict: PROVISIONAL
+    covers: C1 to C9
+    artefact: bank-credit-facility-fit-verifier-r9-2026-09-21.md
+    repairs: none
+  R10:
+    verdict: PROVISIONAL
+    covers: C1 to C10
+    artefact: bank-credit-facility-fit-verifier-r10-2026-09-21.md
+    repairs: none

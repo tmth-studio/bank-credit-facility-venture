@@ -1,0 +1,111 @@
+# Financial margin of safety — input model. A business bank's credit facility line (Case B), Path C mode 3, at C5.
+# At C5 the Using stream's activation activities are added (R5: default funding at authorisation, the funded-event notice
+# and record, the funding queries, the one-off term drafting). They sit inside existing layers and add ⚠ 0.02–0.06 per
+# £1,000; the layers are carried at two decimals so the addition is visible against the ⚠ £8 cap of the counterfactual
+# (RD-030). The conventional R5 line (⚠ 1–2, onboarding, help content, a support line) is not booked. The price ceiling is
+# unchanged from C2 (KMC-OD-STD-TARIFF). The surplus fraction band is 0.90–1.00 with 0.95 as the reporting convention (C4).
+# The drawn-book rise under default funding is not credited: it is an unmeasured input that would lower every fixed line.
+# Every ⚠ figure is Tier 4 until the insider corrects it. The bank is not named. No internal figure is used.
+venture: Business bank credit facility line (Case B)
+state: at-C5
+date: 2026-09-21
+
+bounding:
+  currency: GBP
+  unit: 1000 of average drawn balance
+  period: year
+  scale_state: at-scale
+
+derived_from:
+  operating_model: bank-credit-facility-aom-v5-2026-09-21.md
+  customer_model: bank-credit-facility-ctm-v5-2026-09-21.md
+
+gate: per_requirement
+
+cost_floor:
+  layers:
+    pvc:
+      band: {low: 40.02, high: 83.22}
+      tier: T4
+      unit: GBP per 1000 of average drawn balance
+      period: year
+      scale_state: at-scale
+      basis: activity
+      source: AOM v3 section 6 (carried from v2) — funding from the account line's deposits ⚠ 1.5–3.0% (Bank Rate 4.0% from August 2025, FACT) = 15–30; expected loss on a flow-underwritten pool ⚠ 2.0–4.0% = 20–40 (FinRegLab 2019 and 2025; the level is ⚠; the migrated pool is an observed-conduct pool and the band is held, not lowered); computing and payments ⚠ 2–5 (the saving statement adds ⚠ 0.003); exceptions and write-off handling ⚠ 3–8 (2.3 cells ⚠ 1.8–2.4m ÷ ⚠ 3.4–5.7bn = 0.32–0.71, plus write-off administration ⚠ 3–7). C4 (AOM v4 3a, 3b, 3f) — computing 2.01–5.07 — the limit history (CP-2) adds ⚠ £76–228k a year = ⚠ 0.01–0.07; exceptions 3.00–8.09 — the limit-query handlers add ⚠ 0.00–0.09 (⚠ 3,330–10,000 queries per cell at 0.25 hours; the cell is 13 handlers, band 12–14, at ⚠ 1,400–1,600 productive hours). Funding and expected loss unchanged. Two decimals carried so the R4 addition is visible against the ⚠ £8 cap; C5 — the funded-event notice adds ⚠ 0.00–0.02 to computing (AOM v5 3a) and the funding-query handlers add ⚠ 0.00–0.04 to exceptions (AOM v5 3b) — computing 2.02–5.09, exceptions 3.00–8.13, PVC 40.02–83.22
+    rc:
+      band: {low: 2.02, high: 5.04}
+      tier: T4
+      unit: GBP per 1000 of average drawn balance
+      period: year
+      scale_state: at-scale
+      basis: activity
+      source: AOM v4 3c — limit engine and data team ⚠ 25 people 3–4m, model risk ⚠ 10 people 1.5–2m, product, conduct and compliance ⚠ 13 people 1.3–1.95m (two added at C2; one added at C4 — the conduct reviewer who signs the limit-history display as a financial promotion template under CONC 3.3.1R and reviews it yearly), pricing committee no new people, technology run ⚠ 1–3m, fraud allocation ⚠ 0.5–2m = ⚠ 7.3–12.95m a year (the exception cells sit in PVC), divided by a drawn book of ⚠ 3.4–5.7bn = 1.28–3.81, carried at the C1 band plus the C4 addition of ⚠ 0.02–0.04
+    sc:
+      band: {low: 0.0, high: 1.0}
+      tier: T4
+      unit: GBP per 1000 of average drawn balance
+      period: year
+      scale_state: at-scale
+      basis: activity
+      source: AOM v4 3e (carried from v3) — the scaling path as one-off costed activities. Back-test and independent validation ⚠ 0.3–0.8m (engine ⚠ 1,500–3,000 hours, model risk ⚠ 800–1,500 hours, SS1/23 Principle 4); migration ⚠ 0.3–0.85m (notices ⚠ 0.1–0.5m plus ⚠ 5,300–8,200 handler hours, carried by number from C2); three stage readings ⚠ 0.045–0.135m; the overlay's carrying cost ⚠ 0–10.4m (Stage 1 ⚠ 0–19m for 12 months, two replicas ⚠ 0–50m for 6 months each, at ⚠ 12–15% cost of equity). Total ⚠ 0.64–12.1m one-off, amortised over 5 years (the runner's call; MLR 2017 reg. 40 retention and the ⚠ 27–42 month path both sit inside it) over ⚠ 3.4–5.7bn drawn = 0.02–0.71, rounded up to 0–1. Lending capital for the replicas (⚠ 0.31–0.56bn) is capital held, not a cost; the engine build is a roadmap cost the bank carries either way (C1)
+    ic:
+      band: {low: 12.0, high: 17.0}
+      tier: T4
+      unit: GBP per 1000 of average drawn balance
+      period: year
+      scale_state: at-scale
+      basis: activity
+      source: AOM v4 section 6 (carried from v2) — regulatory capital on the drawn balance, standardised approach, regulatory retail SME risk weight 75% (FACT, CRR Art. 123) x ⚠ 12% total capital ratio x ⚠ 12–15% cost of equity = 10.8–13.5; plus capital on the undrawn limit, ⚠ 1.5–2.5 of undrawn per 1 drawn x 10% credit conversion factor under Basel 3.1 (PRA PS9/24, from 1 January 2027) x 75% x 12% x 12–15% = 1.6–3.4; rounded to 12–17. An overdraft limit already carried this treatment; migration adds nothing
+
+price_ceiling:
+  kmc:
+    band: {low: 150.0, high: 300.0}
+    tier: T3
+    unit: GBP per 1000 of average drawn balance
+    period: year
+    scale_state: at-scale
+    source: TAM data object v2, KMC-OD-STD-TARIFF — the annual money cost of a standard-tariff business overdraft on the drawn balance. Low corner T1 — published representative EARs for unsecured business overdrafts up to £25,000, 15.62% (Lloyds Bank; Bank of Scotland) and 14.54% (HSBC UK), product pages read 21 September 2026; fees ⚠ 1–2% of the limit a year at 47% utilisation (UK Finance BFR 2025 Q3) put the representative customer at ⚠ 16.5–19.6% all-in. High corner T4 — the top of the tariff for the highest-risk band and the rate non-bank receipts-share lenders charge (C1 record, principal's review). Source correction — the C2 run note's attribution of the band to the government's call for evidence was unsupported; the government response (DBT and HM Treasury, 4 December 2025) carries no rate figure
+  customer_surplus_fraction:
+    value: 0.95
+    band: {low: 0.90, high: 1.00}
+    tier: T3
+    source: >-
+      C4 — a band, was a point (verify-F1 fault F-1). The ceiling is a cash outflow the customer pays today, by existence, so
+      the share the design can price up to is 1.00 (the C2 named line, T1 by the tariff pages). The low corner 0.90 comes from
+      the CMA's retail banking market investigation (2016) — SMEs forgo ~£70 a year by not switching and 4% switch — read as
+      the share of a tariff outflow a customer treats as not worth acting on; a tenth is the runner's call (T4 with logic).
+      0.95 is the reporting convention carried from C1 (the fee element, the part most often waived at renewal, discounted by
+      a twentieth). Threshold: the worst-corner margin falls to the 25% gate at 0.885. Convergence: C6 sets the price inside
+      the band; Stage 1 acceptance measures the share the migrated customer accepts. The three corners are reported side by
+      side in the verifier file
+# The operating bar of the carrying check (challenge skill, section 8): the floor's high corner × 1.25.
+# Fixed-number form; it does not read the ceiling. The capital bar (PCO parameters ÷ drawn book, 26.05–43.68) is
+# lower than this at every corner, so the operating bar is the binding bar; it is reported in the verifier by hand.
+# Cap line (RD-030): conventional R4 line ⚠ 2–8 and R5 line ⚠ 1–2 removed; R4 additions ⚠ 0.03–0.20, R5 additions ⚠ 0.02–0.06;
+# cumulative through R5 ⚠ 0.05–0.26; remaining at the high corner ⚠ 7.74. The cap itself is ⚠ £2.00 at a surplus fraction of 0.90, £8.00 at 0.95, £14.00 at 1.00.
+required_price:
+  amount: 132.83
+  unit: GBP per 1000 of average drawn balance
+  period: year
+  scale_state: at-scale
+  derived_from: [cost_floor, required_profit]
+  formula: cost floor high corner 106.26 x 1.25 (operating cost plus a 25% required margin on cost)
+  source: challenge skill section 8, carrying check, operating bar = floor x 1.25; PCO capital bar (bank-deposits-lending-pco-v1-2026-09-18.md, parameters) = £148.5m ÷ £3.4–5.7bn = 26.05–43.68, not binding
+
+component_set_at_fmos:
+  - WP-1
+  - WP-2 (amended C5 — default funding on an accepted term; draw ahead retained; switch-off)
+  - WP-3
+  - WP-4
+  - WP-5
+  - CP-1 (amended C2 and C4)
+  - CP-2 (new at C4 — the limit as its own verifiable history, placed at the shortfall)
+  - PC-1 (condition)
+
+conventional_additions:
+  cap: {value: 8.0, unit: GBP per 1000 of average drawn balance, period: year, source: counterfactual RD-030, high corner at a surplus fraction of 0.95}
+  lines:
+    - {requirement: R4, conventional_line: {low: 2.0, high: 8.0}, removed: true, added: {low: 0.03, high: 0.20}}
+    - {requirement: R5, conventional_line: {low: 1.0, high: 2.0}, removed: true, added: {low: 0.02, high: 0.06}}
+  cumulative: {low: 0.05, high: 0.26}
+  remaining_high_corner: 7.74

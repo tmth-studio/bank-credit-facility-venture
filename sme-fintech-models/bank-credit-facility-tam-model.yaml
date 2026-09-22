@@ -1,0 +1,286 @@
+# TAM data object — Business bank credit facility line (Case B), version 4, at C10 (the Function 3 gate).
+# Version 4 records the one narrowing since C7: the cap set at C10 (gate G-C10-1) — the aggregate drawn book is held at or
+# under ⚠ 10% of the pool's credit balances. It is a volume gate, not an eligibility gate: no KMC class and no sub-class is
+# excluded by it; at the proxy's worst corner (⚠ £5.7bn drawn against ⚠ £50bn of balances) the book that can be drawn is
+# cut to ⚠ £5.0bn, and release (C3) pauses for accounts not yet released. The surviving rows and volumes are unchanged;
+# the own-volume note carries the cap as a ceiling on the bank's own drawn book. The C8 to C10 records, the at-C8 to at-C10
+# fit models and the fin-sim are added as consumers. The version 3 header text follows.
+# Version 3 recorded the one narrowing since C2: the price set at C6 (14.0% simple a year) exceeds the KMC of the two
+# below-band classes, so they are excluded by the named block "price" (gate G-C6-1). The surviving volume does not move —
+# both classes were already outside the volume basis. The pool-at-risk block (from the C2 record) is added because the
+# checking script asks for it on models dated on or after 23 September 2026.
+# Partition rule: by key monetizable cost and eligibility, never by company size or by who owes whom.
+# Confidentiality: the bank is not named. Every figure only the bank holds is a red field written ⚠ [description].
+# Every volume figure below is a public market proxy. The bank's own count replaces it when the insider supplies it.
+venture: Business bank credit facility line (Case B)
+version: 4
+date: 2026-09-21
+state: at-C10
+supersedes: version 3 (at-C7, 2026-09-21) — carried unchanged except the cap gate G-C10-1, the own-volume note and the consumers list; version 2 (at-C2-close, 2026-09-21) — carried unchanged except the price gate G-C6-1, the two addressability lines it changes, the pool_at_risk block and the consumers list; version 1 (at-C2-diagnose, 2026-09-19) selected the standard-tariff overdraft cash outflow after the owner-capital-risk segment failed as a KMC
+
+definition:
+  population: UK SMEs with sufficient observable account flow that currently pay a standard-tariff overdraft at 15–30% EAR for recurrent working-capital draws
+  selected_customer: the same population — the only C1-reachable customer type with a published, direct cash outflow (C2 run note, rerun SR1)
+  red_fields:
+    - "⚠ [count of the bank's business overdraft accounts on the standard tariff]"
+    - "⚠ [average drawn overdraft balance per account at the bank]"
+    - "⚠ [share of the bank's overdraft users paying 15% EAR or more, all-in]"
+  gates:
+    - id: G-PCO-1
+      name: UK SME inside the credit-facility PCO population
+      status: APPLIED
+      note: DBT Business Population Estimates 2025 — 5.7m private-sector businesses (PCO S8)
+    - id: G-C1-1
+      name: sufficient observable account flow to compute a standing limit (⚠ six months of flow here or at a previous mandated provider)
+      status: APPLIED
+      note: met by construction for the selected customer — an overdraft is held on a business current account that carries the flow; the residual (accounts younger than ⚠ six months at any provider) is the new-to-trading sub-class below, which is excluded, not counted
+    - id: G-C2-1
+      name: currently pays a standard-tariff overdraft at 15–30% EAR all-in on the drawn balance
+      status: APPLIED
+      note: the share of overdraft users on the standard tariff is not published; the bank holds it. Recorded below as a T4 band with the logic stated (assume-and-tag), never as a point
+    - id: G-C6-1
+      name: price — the set charge (14.0% simple a year on the daily drawn balance, £140 per £1,000 drawn, band ⚠ 135–142.5) is below the KMC the class pays today
+      status: APPLIED
+      note: >-
+        the named block "price" (C6 record, SR4; recorded at C7 per VA-83). KMC-OD-STD-TARIFF (£150–300) clears it at every
+        point of the band; KMC-LOAN-RATE (£75–90) does not, so SC-OD-BELOW-BAND and SC-LOAN-USER move from partly to not
+        addressable. Neither was in the surviving volume at version 2, so the surviving rows and volumes are unchanged.
+        The block is a price, not a rule: it moves only if the pricing committee moves the rate below £90, which the
+        floor's high corner (106.28) does not allow at the 25% margin
+    - id: G-C10-1
+      name: cap — the aggregate drawn book at or under ⚠ 10% of the pool's credit balances (levelled-line funding, PC-2)
+      status: APPLIED
+      note: >-
+        the named block "the cap" (C10 record, SR3 and Financial check; gate G18 in the binding-gate list). A volume gate on the
+        bank's own drawn book, not an eligibility gate on any class: the pool's credit balances are ⚠ £50–100bn (UK SME deposits
+        ⚠ £250–300bn across all banks, UK Finance / BoE, T2, × a large bank's share ⚠ 20–33%, T4) and the drawn book ⚠ £3.4–5.7bn,
+        so the share used is ⚠ 3.4–11.4%; the cap binds at the worst corner only and cuts the book to ⚠ £5.0bn (a ⚠ 12% cut
+        against the proxy's high end); at central (⚠ £4.5bn against ⚠ £75bn) the surplus is ⚠ £3.0bn. No KMC class or sub-class
+        changes addressability. The market proxy volume below is unchanged — the cap acts on the bank's own drawn book, which is a
+        red field. Threshold: reviewed at the committee above ⚠ 8% for two quarters. Convergence: the first cap reading at Stage 1
+
+volume:
+  basis: incidence
+  unit: SME businesses using a bank overdraft, per year (market proxy)
+  low: 627000
+  high: 969000
+  source: SME Finance Monitor (BVA BDRC), main forms of finance used — overdraft use 17% (Q4 2023), 13% (Q1 2024), about 11% (Q4 2024, read from the December 2024 rolling charts, chart p.5) × DBT Business Population Estimates 2025 (5.7m). Band = 11%–17% × 5.7m. Tier T1 on the rate and the population; the product is arithmetic
+  note: a market proxy for sizing the KMC class. The venture's own volume is the bank's — ⚠ [count of the bank's business overdraft accounts on the standard tariff]. No share of the market is asserted for the bank
+
+kmc_classes:
+  - id: KMC-OD-STD-TARIFF
+    name: the annual money cost of a standard-tariff business overdraft — interest and fees on the drawn balance
+    class: expended
+    magnitude: "£150–300 per £1,000 of average drawn balance per year"
+    tier: T3 (low corner T1; high corner judged)
+    note: >
+      Low corner (£150 = 15% EAR, no fee): published representative EARs for unsecured business overdrafts up to £25,000
+      — 15.62% EAR (Lloyds Bank; Bank of Scotland) and 14.54% EAR (HSBC UK), product pages read 21 September 2026 (T1).
+      A representative rate is the rate at least 51% of accepted applicants receive or better, so the majority of that
+      product's customers pay at or below it; arrangement and renewal fees (⚠ 1–2% of the limit a year, T4) at 47%
+      utilisation (UK Finance BFR 2025 Q3, PCO S3) add ⚠ 2–4% of the drawn balance, which places the representative
+      customer at ⚠ 16.5–19.6% all-in — inside the band. High corner (£300 = 30% EAR): the top of the tariff for the
+      highest-risk band and the rate non-bank receipts-share lenders charge (C1 record, principal's review: ⚠ 15–30%
+      equivalent); judged, T4. Source correction (21 Sep 2026): the C2 run note attributed "15–20% EAR, up to 30%" to the
+      government's Small Business Access to Finance call for evidence; the government response (DBT and HM Treasury,
+      4 December 2025) carries no rate figure. The band now rests on the published tariffs above.
+  - id: KMC-LOAN-RATE
+    name: the annual money cost of a term loan — interest at a margin over Bank Rate plus fees
+    class: expended
+    magnitude: "£75–90 per £1,000 drawn per year"
+    tier: T1 (rate) / T4 (fee blend)
+    note: Bank of England effective rate on new SME loans 6.18–7.00% through 2025 (C1 record, source C1) plus fees ⚠ 1–2%. Recorded, not selected — below the C1 floor's high corner (£105), so the price condition cannot hold for this class at the worst corner; the class is carried by number to C6, not priced here
+  - id: KMC-OWNER-CAPITAL-RISK
+    name: owner capital put at risk to provide the business's recurring working money
+    class: risk-borne
+    magnitude: unmeasured
+    note: incidence is published (22% "had to" inject personal funds); amount, duration and loss probability are not. Failed as the C2 KMC on 19 September 2026 for that reason (run note, first diagnosis). Recorded as a measurement gap, not a ceiling
+  - id: KMC-DETERRED
+    name: the cost a would-be borrower bears by not applying (going without, a card, family money)
+    class: foregone
+    magnitude: unmeasured
+    note: incidence is published (5% would-be seekers); the foregone return is not. Recorded, unpriced
+  - id: KMC-0
+    name: no monetizable cost the C1 form can reach
+
+sub_classes:
+  - id: SC-OD-STD-TARIFF
+    name: current overdraft user on the standard tariff, paying 15–30% EAR all-in, with observable flow
+    kmc: KMC-OD-STD-TARIFF
+    addressability: addressable
+    share_of_segment: {value: [40, 70], tier: T4}
+    share_logic: >
+      T4 by rule — assumed with the logic stated, never a point. Lower bound 40%: the representative-rate rule puts the
+      majority of unsecured sub-£25,000 overdraft customers at or near the representative EAR (14.5–15.6%), and fees put
+      them inside the band; the CMA (2016) found no relationship manager below £500,000 turnover, so pricing below
+      that size is tariff, not negotiated. Upper bound 70%: secured, negotiated and larger facilities price below 15%.
+      Converges on ⚠ [share of the bank's overdraft users paying 15% EAR or more, all-in].
+    note: the selected customer. Flow gate met by construction (an overdraft sits on an account with flow)
+  - id: SC-OD-BELOW-BAND
+    name: current overdraft user on negotiated or secured pricing below 15% EAR
+    kmc: KMC-LOAN-RATE
+    addressability: not
+    excluded_by: G-C6-1 (price) — version 3; was partly at version 2
+    share_of_segment: {value: [30, 60], tier: T4}
+    supplied_alternative:
+      route: the customer keeps the negotiated overdraft; the standing limit is offered on the same account but the price condition (below the price paid today) may not clear the floor's high corner
+      sources: [Bank of England Money and Credit November 2025 (effective rate 6.18–7.00%), CMA retail banking market investigation 2016]
+    note: recorded, not selected. C6 answered by number — the set charge (£140 per £1,000) exceeds this class's KMC (£75–90), so the price condition cannot hold for it; excluded by the named block "price"
+  - id: SC-LOAN-USER
+    name: SME with a bank term loan and observable flow
+    kmc: KMC-LOAN-RATE
+    addressability: not
+    excluded_by: G-C6-1 (price) — version 3; was partly at version 2
+    share_of_segment: {value: null, tier: unmeasured}
+    supplied_alternative:
+      route: the term loan continues to its schedule; the standing limit sits beside it on the account for new draws
+      sources: [SME Finance Monitor December 2024 rolling charts — 9% of SMEs had a bank loan in 2024 (3–9% after the pandemic-loan overlap)]
+    note: outside the volume basis (overdraft users). Recorded because the C1 design offers the limit on every account with flow; the KMC for this class is below the floor's high corner and below the set price — excluded by the named block "price" at version 3. The limit still sits on the account (C1); the class is not counted as a payer
+  - id: SC-OWNER-FUNDED
+    name: SME that had to inject personal money and has observable flow
+    kmc: KMC-OWNER-CAPITAL-RISK
+    addressability: partly
+    share_of_segment: {value: null, tier: unmeasured}
+    supplied_alternative:
+      route: personal savings, family money or a card covers the cash need today
+      sources: [SME Finance Monitor December 2024 rolling charts — 35% injected personal funds in the previous 12 months; 22% felt they had to]
+    note: >
+      outside the volume basis. Incidence 22% × 5.7m = about 1.25m (PCO section 3). Excluded from the selected
+      customer because the cost is unpriced — a measurement gap, not an ineligibility. Owner: the insider (amount and
+      duration of owner injections by account-conduct band). Convergence event: a priced band from the bank's own data
+      or from the SME Finance Monitor's amount question. Pivot trigger: if the priced cost per £1,000 of need exceeds
+      £150, this sub-class re-enters as a second selected customer at a rerun of R2
+  - id: SC-DETERRED
+    name: would-be seeker with observable flow who did not apply
+    kmc: KMC-DETERRED
+    addressability: partly
+    share_of_segment: {value: null, tier: unmeasured}
+    supplied_alternative:
+      route: goes without; a card; family money
+      sources: [SME Finance Monitor Q4 2024 management summary — would-be seekers 5% (PCO S2)]
+    note: >
+      outside the volume basis. Incidence 5% × 5.7m = about 285,000 (PCO section 3). Excluded because the foregone
+      return is unpriced. Owner: the insider (deterred applicants observable as accounts with flow and no facility).
+      Convergence event: a priced foregone return from the SME Finance Monitor's "what would you have done with the
+      money" question or the bank's own data. Pivot trigger: same as SC-OWNER-FUNDED
+  - id: SC-NO-FLOW-HISTORY
+    name: new-to-trading SME with no account-flow history anywhere
+    kmc: KMC-0
+    addressability: not
+    share_of_segment: {value: null, tier: unmeasured}
+    supplied_alternative:
+      route: none supplied by the C1 form; no flow exists from which to compute a standing limit
+      sources: [British Business Bank Small Business Finance Markets 2025/26 — 314,000 start-ups a year (PCO S1)]
+    note: outside the volume basis. Excluded by gate G-C1-1. The limit for an account with no history remains outside the form; it is not carried to any later requirement as a solution, only recorded
+
+recorded_segments:
+  defect: none — the recorded partition is already by KMC and eligibility; company size does not appear
+  segments:
+    - id: SEG-OD-STD-TARIFF
+      name: standard-tariff overdraft users (the selected customer)
+      sub_classes: [SC-OD-STD-TARIFF]
+      share_pct: [40, 70]
+    - id: SEG-OD-BELOW-BAND
+      name: overdraft users priced below the band
+      sub_classes: [SC-OD-BELOW-BAND]
+      share_pct: [30, 60]
+
+proposed_segments:
+  segments:
+    - id: SEG-OD-STD-TARIFF
+      name: standard-tariff overdraft users (the selected customer)
+      sub_classes: [SC-OD-STD-TARIFF]
+      share_pct: [40, 70]
+    - id: SEG-OD-BELOW-BAND
+      name: overdraft users priced below the band
+      sub_classes: [SC-OD-BELOW-BAND]
+      share_pct: [30, 60]
+
+surviving:
+  note: >
+    The survival screen is the tariff share — SEG-OD-STD-TARIFF survives in full (the KMC is live and the C1 form reaches
+    it); SEG-OD-BELOW-BAND survives at zero for this KMC class and is omitted from the rows. The one row therefore carries
+    weight 100 and the tariff share as its survival band (T4 with the logic in share_logic).
+  segment_survival:
+    - {segment: SEG-OD-STD-TARIFF, weight_pct: 100, low_pct: 40, central_pct: 55, high_pct: 70}
+  weighted_survival_pct: {low: 40, central: 55, high: 70}
+  surviving_volume:
+    low: {low: 250800, high: 387600}
+    central: {low: 344850, high: 532950}
+    high: {low: 438900, high: 678300}
+  own_volume_note: the bank's own surviving count is ⚠ [count of the bank's business overdraft accounts on the standard tariff]; the AOM's public proxy for the bank's overdraft accounts is 950,000 (own base, PCO S11) × 11–17% = 104,500–161,500, of which ⚠ 40–70% on the tariff = 41,800–113,050. Version 4 — the drawn book these and the never-borrowed accounts produce (⚠ £3.4–5.7bn at scale) is capped by G-C10-1 at ⚠ 10% of the pool's credit balances (⚠ £5.0–10.0bn); the cap binds at the proxy's worst corner only
+
+pool_at_risk:
+  status: sized
+  note: >-
+    carried from the C2 record's POOL AT RISK — R2 block (21 September 2026) into the data object at version 3. One
+    incumbent class: the venture is mode 3, so the incumbent is the bank's own standard-tariff overdraft line. Every
+    figure is T4 (a public proxy × judged bands); the bank's own figures are red fields. Reading S = the share the C1
+    form takes on its own; Reading D = the share taken once the tariff line is retired into the limit (migration, WP-4).
+  incumbents:
+    - id: INC-BANK-TARIFF-OD
+      class: UK banks running standard-tariff business overdrafts — the bank itself (mode 3)
+      revenue_a_year:
+        low: 63000000
+        high: 577000000
+        source: 41,800–113,050 tariff accounts (own base 950,000 × 11–17% overdraft use × ⚠ 40–70% on the tariff) × ⚠ £10–17k average drawn × 15–30% all-in; C2 record
+        tier: T4
+      reading_s:
+        low: 5
+        high: 20
+        source: share of the tariff pool the standing limit takes with the overdraft still offered beside it; judged; C2 record
+        tier: T4
+      reading_d:
+        low: 20
+        high: 40
+        source: share taken once the tariff overdraft is retired into the limit at migration (WP-4); judged; C2 record
+        tier: T4
+      pool_a_year:
+        low: 3000000
+        high: 231000000
+        source: revenue × reading — Reading S ⚠ £3–115m, Reading D ⚠ £13–231m per incumbent; the low corner is Reading S low, the high corner Reading D high; C2 record
+        tier: T4
+      channelling:
+        condition: partly
+        evidence: non-bank receipts-share lenders take this customer at the tariff, not below it; the share channelled and the terms were held to R7 — at C7 no third party is paid to channel; the class of account-information readers carries the limit by conformance to the Open Banking standard (PP-1), and the pool is lost to the C1 form whether or not any reader displays it
+
+consumers:
+  - doc: bank-credit-facility-c2-run-note-2026-09-19.md
+    status: STALE
+    note: the run note's carrying check used the KMC band from this file's version 2 but attributed its source to the government call for evidence; superseded by the C2 record
+  - doc: ../bank-credit-facility-c2-v1-2026-09-21.md
+    status: CURRENT
+    note: reads version 2; version 3 changes no figure the C2 record uses
+  - doc: bank-credit-facility-fit-model-at-C2.yaml
+    status: CURRENT
+    note: the KMC band is unchanged at version 3
+  - doc: ../bank-credit-facility-c6-v1-2026-09-21.md
+    status: CURRENT
+    note: sets the price that gate G-C6-1 records
+  - doc: ../bank-credit-facility-c7-v1-2026-09-21.md
+    status: CURRENT
+    note: versions this file at the Function 2 gate (VA-83); the pool_at_risk block bounds the VA-147 loss side
+  - doc: bank-credit-facility-fit-model-at-C7.yaml
+    status: CURRENT
+    note: the KMC band (150–300) and the set price (140) are this file's
+  - doc: ../bank-credit-facility-c8-v1-2026-09-21.md
+    status: CURRENT
+    note: reads the KMC band and the set price; the R8 line against the ⚠ £8 cap
+  - doc: ../bank-credit-facility-c9-v1-2026-09-21.md
+    status: CURRENT
+    note: reads the KMC band and the set price; no gate added
+  - doc: ../bank-credit-facility-c10-v1-2026-09-21.md
+    status: CURRENT
+    note: versions this file at the Function 3 gate (VA-83); adds gate G-C10-1 (the cap); the surviving volume is unchanged
+  - doc: bank-credit-facility-fit-model-at-C8.yaml
+    status: CURRENT
+    note: the KMC band (150–300) and the set price (140) are this file's
+  - doc: bank-credit-facility-fit-model-at-C9.yaml
+    status: CURRENT
+    note: the KMC band (150–300) and the set price (140) are this file's
+  - doc: bank-credit-facility-fit-model-at-C10.yaml
+    status: CURRENT
+    note: the KMC band (150–300) and the set price (140) are this file's; the cap is a volume assumption in its position-holding block
+  - doc: bank_credit_facility_fin_sim.py
+    status: CURRENT
+    note: reads the surviving volume, the own-volume proxy, the KMC band and gate G-C10-1 for the per-segment penetration and the cap's worst corner
