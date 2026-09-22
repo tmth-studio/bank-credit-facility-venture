@@ -116,6 +116,30 @@
 
 **Phase II gate verdict:** BORDERLINE at the conservative scenario (30.3% against 60%; band 25.6–32.6% across the price band); PASS at central and optimistic. **Binding input:** the loss rate on the flow-underwritten pool (⚠ 2–4%; every point moves the floor high by 10); second input the measured deposit cost (⚠ 1.5–3.0%; gate 3.45%). **What tightens the gate:** the loss band moving to its low end at Stage 0's back-test, or the deposit cost reading at the band's low end under the signed term. The kill line (5.0%) reads BORDERLINE on the 25% gate at 140 and FAIL at 135; the C3 continue line (4.8%) reads BORDERLINE — the H1 route-back above.
 
+### The business case — the two files a reader in another company receives (22 September 2026)
+
+Built to `Forge/WS1/business-case-standard.md` v0.3 from one model data file, under the model data file specification v1.2 (the `book` block added for this run: the balance each transaction carries and the share of it the venture funds with capital). Runner-drafted; **object-after Tom by 24 September 2026 17:00**. The bank is not named in any of the three; every bank-held figure is a ⚠ band.
+
+| File | Digest (first 13) | What it is |
+|---|---|---|
+| `sme-fintech-models/bank-credit-facility-model.yaml` | `c48405f480fb1` | the model data file — every load-bearing input a band with its source and tier; one transaction = £1,000 of drawn balance for one month; one operating unit = one exception cell; head office = the bank's own teams at no margin |
+| `sme-fintech-models/bank-credit-facility-business-case-evidence.xlsx` | `d376d0f879421` | the evidence workbook — tabs 1–12 the IFC model, 13–14 the year-one sales and cash flow with the 10% stress, 15–18 the five-year roll-out, profit and loss, cash flow and balance sheet (loans to customers, deposits and the capital held against the book carried), 19 the checks. Recalculated independently: ALL CHECKS PASS; the balance sheet balances in all five years; 146 named cells agree with the model |
+| `sme-fintech-models/bank-credit-facility-business-case-evidence-cells.md` | `e888a69896aeb` | the cell index — every name the document cites |
+| `../bank-credit-facility-business-case.html` | f06784a673a05 (v1.0, 22 September 2026; cite checker and house-style checker both clean) | the business case document — seven sections in the GOV.UK order, summary panel first, appendix "Where each number lives" |
+
+**Reconciliation to the simulation above (base scenario against the central corner):**
+
+| Reading | Workbook, scenario 1 | Simulation, central | Difference and its cause |
+|---|---|---|---|
+| Cost floor per £1,000 drawn a year | £84.60 (7.05 a month × 12) | £81.28 | +£3.32: the workbook charges corporation tax at 25% on the return required on the capital held against the book (£3.87 per £1,000 a year); the simulation applied the 12–15% cost of equity with no tax on it. Before that tax the workbook's floor is £80.72 — within £1 of the simulation |
+| Margin at the set price | 65.5% (73.4% before the tax on the return) | 72.2% | the same cause |
+| Worst corner | 14.5% — every banded input at its adverse end at once, **including the price at £135**, the accounts with no flow at 25%, the balances at £15k, the one-offs spread over 36 months and the reserve in full | 30.3% conservative at £140 (25.6% at £135) | a stricter definition: the simulation's conservative corner moves the cost lines and the book, not the price, the flow coverage or the spreading period |
+| Binding input | the expected credit loss on the drawn balance (a move to 4% takes the margin to 48.0%) | the loss rate (gate 4.45%) | the same input |
+| Cash the venture needs in year one | £3.7m base, £4.8m under the 10% stress; £5m equity set in year one | £1.8m largest shortfall at month 1 (central) | the workbook pays the one-offs in month one in full (£8.76m including the ⚠ £5.2m carrying cost of the pool overlays, held as a charge); the simulation holds the overlays as capital and spreads the one-offs |
+| Profit after tax, years one to five | £43.5m · £234.2m · £258.2m · £258.2m · £258.2m; cash at year five £1,143m, retained | cumulative operating cash at month 60 ⚠ £1,341m | the P&L charges tax and the one-offs; the simulation's figure is before tax |
+
+**A reading for Tom to rule — the tax on the return on capital.** The workbook's rule (finance standard: tax on the investment return) is right if the 12–15% cost of equity is an after-tax target, which is how a bank states its return on tangible equity. On that reading the design record's margins are about five points too high: conservative 30.3% → 25.0% (the tax adds 4.50 to the floor: 111.97; exactly on the 25% gate), central 72.2% → 64.4%, optimistic 154.1% → 140.0%. The price stays £140; the verdicts at central and optimistic stay PASS; the conservative reading moves from 5.3 points above the 25% gate to the line, and the Phase II reading stays BORDERLINE. Derived, not a new commitment — object-after with the files.
+
 ### Cost progression C3 → R10 (the floor's high corner, per £1,000 drawn a year)
 
 | Point | Floor ⚠ | Added at the high corner | Cumulative R4–R10 | Remaining of ⚠ 8.00 | Margin at 140, worst corner |
@@ -165,6 +189,8 @@ Seven requirements added ⚠ 1.47 of the ⚠ 8.00 the counterfactual allows at t
 |---|---|---|
 | PCO — ratified by lapse 20 September 2026 17:00 | closed | — |
 | Toolchain seal — **closed 21 September 2026 19:49** (re-sealed, not by the runner). `fit_margin.py` re-run on the C3, C4 and C5 fit models: 34.4% · 34.2% · 34.1%, matching the hand figures in r3, r4 and r5. `check_verdict_order.py` on the verdict record: IN ORDER. `fit_margin.py` on the C6 and C7 fit models: 31.7% · 31.7%, matching r6 and r7. `validate_tam_model.py` on the TAM data object version 3: valid with three declared warnings (two L4 vocabulary, one L7 incidence basis). | closed | — |
+| **Business case — model data file, evidence workbook, cell index, document (22 September 2026) — object-after** | Tom | 24 September 2026 17:00 |
+| Tax on the return on the capital held against the book — after-tax cost of equity (workbook, margins five points lower) or pre-tax (simulation) | Tom | a ruling; the price and the central/optimistic verdicts do not move either way |
 | C2 record, TAM v2, CTM v2, AOM v2, fit model, verifier r2 — object-after | Tom | 23 September 2026 17:00 (48 hours from filing) |
 | **C3 record, CTM v3, AOM v3, fit model at C3, verifier r3, consistency audit F1, verification F1, counterfactual — object-after** | Tom | 23 September 2026 17:00 |
 | Depth of readable transaction history for the back-test (assumed ⚠ 3–5 years; MLR retention sets the ceiling) | the insider | the years the data platform holds per account |
@@ -176,6 +202,7 @@ Seven requirements added ⚠ 1.47 of the ⚠ 8.00 the counterfactual allows at t
 | Share of the bank's overdraft accounts on the standard tariff at ≥ 15% EAR all-in (assumed ⚠ 40–70%) | the insider | the count by tariff band |
 | Tariff revenue on the migrated pool against Reading D (VA-147) | the insider | the bank's overdraft revenue by tariff band and its attrition to non-bank lenders |
 | Loss rate on the flow-underwritten pool | the insider | the bank's loss by account-conduct band; pivot trigger > ⚠ 5% |
+| Size and loss of the flow-eligible pool with no facility today (SC-DETERRED and SC-OWNER-FUNDED in the TAM data object — recorded, unpriced; Tom, 22 September 2026: the opportunity cost of not getting capital is their KMC) — count accounts with ≥ ⚠ 6 months of flow, a shortfall history and no facility, and read their clearance rate against the tariff pool's | the Stage 0 back-test (no customer, no cost beyond the run) | the count and the two clearance rates; a second selected customer with a priced ceiling if the loss sits inside the band |
 | Share of accounts with ≥ ⚠ 6 months of flow here or at a previous mandated provider | the insider | the count by account age and monthly receipts; switchers' history via open banking |
 | Every ⚠ cost line | the insider | the bank's cost by function |
 | Customer acceptance of migration and the receipts share | the insider (a pilot cohort — no fieldwork by the venture) | decline share; trigger > ⚠ 30% |

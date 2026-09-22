@@ -1,0 +1,179 @@
+# Fin-sim model data file — the credit facility line of a large UK SME bank (Case B). Bank unnamed.
+# Spec: .claude/skills/shared/finsim-model-spec.md (v1.1 banded line items; v1.2 adds the optional `book` block).
+# Built 22 September 2026 from the C10 record, AOM v10.1, the FIT model at C10 and bank_credit_facility_fin_sim.py.
+# Every ⚠ figure is a public-source or runner-derived estimate the insider corrects; none is a bank-held number.
+#
+# How the venture maps onto the workbook's shape:
+#   transaction     = £1,000 of average drawn balance carried for one month (so a price of £140 per £1,000 a year is 11.67 a month)
+#   customer        = one drawn account; transactions per customer per month = its average drawn balance in £ thousands
+#   operating unit  = one exception cell: the handlers, lead and tooling that serve one third of the reachable accounts
+#   head office     = the limit engine and data team, model risk, product/conduct/compliance, technology run, fraud, route upkeep
+#   book            = the balance each transaction carries (£1,000 by definition) and the share the venture funds with capital
+
+venture:
+  name: Credit facility line — Case B
+  slug: bank-credit-facility
+  one_line: A standing credit limit on the business current account, computed daily from the account's own flow, drawn without application and repaid by a share of receipts, priced at 14.0% simple on the drawn balance with no fee.
+  currency: GBP
+  date: 2026-09-22
+  unit_name: exception cell
+  unit_description: One handling cell — 11 to 15 handlers, a lead and shared tooling — serving one third of the reachable accounts; the automated limit, funding and collection run in the account line and cost per £1,000 drawn.
+  design_record: ../bank-credit-facility-c10-v1-2026-09-21.md
+
+market:
+  total_reachable_population:
+    {value: 950000, low: 850000, high: 1050000, unit: business current accounts, tier: 4,
+     source: "⚠ AOM v10 §0 — accounts on the levelled line after migration; a public-source estimate of the bank's SME account base", adverse: low}
+  non_viable_share:
+    {value: 0.20, low: 0.15, high: 0.25, unit: share, tier: 4,
+     source: "⚠ assumed — accounts with no observed flow, so no limit can be computed (C1 record, the flow-coverage input)", adverse: high}
+  unit_population:
+    {value: 316667, low: 316667, high: 316667, unit: accounts, tier: 4,
+     source: "⚠ AOM v10 §3b — one cell per ⚠ 333,000 accounts; 950,000 ÷ 3 cells", adverse: low}
+  penetration_steady_state:
+    {value: 0.30, low: 0.30, high: 0.30, unit: share, tier: 4,
+     source: "⚠ AOM v10 §0 — drawn accounts as a share of accounts with a limit (228,000 of 760,000); the balance band below carries the uncertainty", adverse: low}
+  transactions_per_customer_per_month:
+    {value: 20, low: 15, high: 25, unit: "£ thousands of average drawn balance per drawn account", tier: 4,
+     source: "⚠ AOM v10 §0 — average drawn balance £15–25k per drawn account; book £3.4–5.7bn", adverse: low}
+
+products:
+  - name: Drawn balance, per £1,000 carried for one month
+    share_of_transactions: 1.0
+    price: {value: 11.6667, low: 11.25, high: 11.875, unit: GBP, tier: 3,
+            source: "C6 record — 14.0% simple on the daily drawn balance = £140 per £1,000 a year (band ⚠ 135–142.5), no fee; ÷ 12", adverse: low}
+    cost_of_goods: {value: 1.875, low: 1.25, high: 2.5, unit: GBP, tier: 4,
+                    source: "⚠ C10 record — funding at the measured deposit cost 1.5–3.0% a year on the drawn balance (£15–30 per £1,000); ÷ 12", adverse: high}
+
+hr:
+  available_hours_per_person_month:
+    {value: 125, low: 116.7, high: 133.3, unit: hours, tier: 4,
+     source: "⚠ AOM v10 §3b — 1,400–1,600 productive hours a year per handler; ÷ 12", adverse: low}
+  unit_roles:
+    Exception handler: {monthly_cost: {value: 4792, low: 4167, high: 5417, unit: GBP, tier: 4,
+                        source: "⚠ AOM v10 §3b — handlers £50–65k a year all-in; ÷ 12", adverse: high}}
+    Cell lead: {monthly_cost: {value: 6667, low: 5833, high: 7500, unit: GBP, tier: 4,
+                source: "⚠ AOM v10 §3b — leads £70–90k a year all-in; ÷ 12", adverse: high}}
+  # Handler activities are events per drawn account. Minutes = hours per event × 60. Multiplier = events per 100,000
+  # drawn accounts a year ÷ 1,200,000 (100,000 accounts × 12 months), so minutes × multiplier × drawn accounts = the cell's hours a month.
+  unit_activities:
+    - {activity: Flow stop — the account's receipts stop and the limit is held, role: Exception handler, minutes: 240, driver: per_customer_month, multiplier: 0.0016667,
+       note: "⚠ 2,000 events per 100,000 drawn accounts a year × 4 hours (AOM v10 §3b)"}
+    - {activity: Signal review — a conduct or fraud signal on a drawn account, role: Exception handler, minutes: 120, driver: per_customer_month, multiplier: 0.0025,
+       note: "⚠ 3,000 events × 2 hours"}
+    - {activity: Dispute — the customer contests a funded event or a charge, role: Exception handler, minutes: 60, driver: per_customer_month, multiplier: 0.00083333,
+       note: "⚠ 1,000 events × 1 hour"}
+    - {activity: Write-off case — the account is closed and the balance written off, role: Exception handler, minutes: 60, driver: per_customer_month, multiplier: 0.00083333,
+       note: "⚠ 1,000 events × 1 hour; the administration and legal cost is a running line below"}
+    - {activity: Saving statement query, role: Exception handler, minutes: 30, driver: per_customer_month, multiplier: 0.0016667,
+       note: "⚠ 2,000 events × 0.5 hours (C2)"}
+    - {activity: Limit history query, role: Exception handler, minutes: 15, driver: per_customer_month, multiplier: 0.0055542,
+       note: "⚠ 3,330–10,000 events × 0.25 hours (C4); the central count 6,665"}
+    - {activity: Funding query — why a payment was or was not funded, role: Exception handler, minutes: 15, driver: per_customer_month, multiplier: 0.00090417,
+       note: "⚠ 270–1,900 events × 0.25 hours (C5); the central count 1,085"}
+    - {activity: Charge query, role: Exception handler, minutes: 15, driver: per_customer_month, multiplier: 0.00029167,
+       note: "⚠ 200–500 events × 0.25 hours (C6); the central count 350"}
+    - {activity: Display query — the credit line as shown by a third-party provider, role: Exception handler, minutes: 15, driver: per_customer_month, multiplier: 0.00035417,
+       note: "⚠ 150–700 events × 0.25 hours (C7); the central count 425"}
+    - {activity: Seasoning query — why the limit rose or did not, role: Exception handler, minutes: 15, driver: per_customer_month, multiplier: 0.00083333,
+       note: "⚠ 500–1,500 events × 0.25 hours (C8); the central count 1,000"}
+    - {activity: Supervise the cell — one lead per cell, role: Cell lead, minutes: 7500, driver: per_unit_month, multiplier: 1,
+       note: "one full-time lead (125 hours a month) per cell, AOM v10 §3b"}
+  head_office_roles:
+    - {role: Limit engine and data team, count: 25, monthly_cost: {value: 11667, low: 10000, high: 13333, unit: GBP, tier: 4,
+       source: "⚠ AOM v10 §3c — 25 people, £3–4m a year; per person per month", adverse: high}}
+    - {role: Model risk, count: 10, monthly_cost: {value: 14583, low: 12500, high: 16667, unit: GBP, tier: 4,
+       source: "⚠ AOM v10 §3c — 10 people, £1.5–2m a year; per person per month", adverse: high}}
+    - {role: Product, conduct and compliance, count: 13, monthly_cost: {value: 10417, low: 8333, high: 12500, unit: GBP, tier: 4,
+       source: "⚠ AOM v10 §3c — 13 people, £1.3–1.95m a year; per person per month", adverse: high}}
+
+assets:
+  unit: []
+  head_office: []
+
+running:
+  unit:
+    - {name: Expected credit loss on the drawn balance, driver: per_transaction,
+       amount: {value: 2.5, low: 1.6667, high: 3.3333, unit: GBP, tier: 4,
+                source: "⚠ C1 record — loss rate on the flow-underwritten pool 2–4% a year (£20–40 per £1,000); ÷ 12; unmeasured until Stage 0's back-test", adverse: high}}
+    - {name: Computing and payments in the account line, driver: per_transaction,
+       amount: {value: 0.2975, low: 0.1683, high: 0.4267, unit: GBP, tier: 4,
+                source: "⚠ AOM v10 §6 — computing 2.02–5.12 per £1,000 a year; ÷ 12", adverse: high}}
+    - {name: Write-off administration and legal, driver: per_transaction,
+       amount: {value: 0.4167, low: 0.25, high: 0.5833, unit: GBP, tier: 4,
+                source: "⚠ AOM v10 §6 — write-off administration and legal £3–7 per £1,000 a year; ÷ 12", adverse: high}}
+    - {name: Cell tooling — case system and telephony, driver: per_unit_month,
+       amount: {value: 23750, low: 19167, high: 28333, unit: GBP, tier: 4,
+                source: "⚠ AOM v10 §3b — tooling £0.23–0.34m a year per cell; ÷ 12", adverse: high}}
+    - {name: Shared trainer, allocated to the cell, driver: per_unit_month,
+       amount: {value: 2083, low: 1667, high: 2500, unit: GBP, tier: 4,
+                source: "⚠ AOM v10 §3b — one trainer £20–30k a year shared across the cells; ÷ 12", adverse: high}}
+  head_office:
+    - {name: Technology run — the limit engine, the ledger and the daily price, amount: {value: 166667, low: 83333, high: 250000, unit: GBP, tier: 4,
+       source: "⚠ AOM v10 §3c — £1–3m a year; ÷ 12", adverse: high}}
+    - {name: Fraud monitoring on funded events, amount: {value: 104167, low: 41667, high: 166667, unit: GBP, tier: 4,
+       source: "⚠ AOM v10 §3c — £0.5–2m a year; ÷ 12", adverse: high}}
+    - {name: Other head-office people (the all-people total less the named teams), amount: {value: 37500, low: 25000, high: 50000, unit: GBP, tier: 4,
+       source: "⚠ fin-sim input rc_people_gbp £7.6–13.55m a year (AOM v10 §3c all-people cost) less the six lines named here; ÷ 12", adverse: high}}
+    - {name: Standby securitisation route — annual upkeep, amount: {value: 37500, low: 25000, high: 50000, unit: GBP, tier: 4,
+       source: "⚠ C10 record — a documented, never-issued master trust kept current, £0.3–0.6m a year (external); ÷ 12", adverse: high}}
+    - {name: Reserve against the assumed head-office count, amount: {value: 150000, low: 0, high: 300333, unit: GBP, tier: 4,
+       source: "⚠ AOM v10.1 §6 — a named reserve of 1.06 per £1,000 at the conservative corner on a £3.4bn book, released when the insider's count is read (S2 of the C10 audit); ÷ 12", adverse: high}}
+
+startup:
+  unit_one_time: []
+  working_capital_months:
+    {value: 0, low: 0, high: 1, unit: months, tier: 4,
+     source: "the charge is collected as the first slice of each receipts share from month one (C6), so the cell carries no working capital; one month held at the adverse end", adverse: high}
+  head_office_development:
+    - {name: Stage 0 back-test on the bank's own account history, cost: {value: 550000, low: 300000, high: 800000, unit: GBP, tier: 4,
+       source: "⚠ C3 record — the shadow run and back-test, £0.3–0.8m, no customer and no release", adverse: high}}
+    - {name: Outcome ledger build, cost: {value: 200000, low: 100000, high: 300000, unit: GBP, tier: 4,
+       source: "⚠ C9 record — £0.1–0.3m once", adverse: high}}
+    - {name: Seasoning schedule build, cost: {value: 30000, low: 20000, high: 40000, unit: GBP, tier: 4,
+       source: "⚠ C8 record — £20–40k once", adverse: high}}
+    - {name: Credit-line element build and conformance test, cost: {value: 75000, low: 50000, high: 100000, unit: GBP, tier: 4,
+       source: "⚠ C7 record — £50–100k once", adverse: high}}
+    - {name: Funding term, representative example and signature, cost: {value: 39500, low: 26000, high: 53000, unit: GBP, tier: 4,
+       source: "⚠ C5 and C6 records — £26–53k once", adverse: high}}
+    - {name: Migration notices to the accounts moving to the levelled line, cost: {value: 575000, low: 300000, high: 850000, unit: GBP, tier: 4,
+       source: "⚠ C2 record — £0.3–0.85m once", adverse: high}}
+    - {name: Stage readings at each release gate, cost: {value: 90000, low: 45000, high: 135000, unit: GBP, tier: 4,
+       source: "⚠ C3 record — £45–135k once", adverse: high}}
+    - {name: Standby securitisation route — documentation and set-up, cost: {value: 2000000, low: 1000000, high: 3000000, unit: GBP, tier: 4,
+       source: "⚠ C10 record — £1–3m once, documented before Stage 3 and never issued", adverse: high}}
+    - {name: Carrying cost of the pool overlays during release, cost: {value: 5200000, low: 0, high: 10400000, unit: GBP, tier: 4,
+       source: "⚠ C3 record — capital held against the Stage 1 book (£0–19m, 12 months) and each replica (£0–50m, 6 months) at 12–15%; a charge for capital held, not a payment", adverse: high}}
+  investment_period_months:
+    {value: 60, low: 36, high: 60, unit: months, tier: 4,
+     source: "the one-offs are spread over the five-year forecast; 36 months held at the adverse end", adverse: low}
+
+finance:
+  cost_of_capital_annual: {value: 0.135, low: 0.12, high: 0.15, unit: share, tier: 3,
+                           source: "⚠ FIT model at C10 — cost of equity 12–15% on the capital held against the book (a bank's target return on tangible equity, public results)", adverse: high}
+  tax_rate: 0.25
+  head_office_target_ebit_margin: 0.0
+  target_margin: 0.25
+
+book:
+  balance_per_transaction: {value: 1000, low: 1000, high: 1000, unit: GBP, tier: 1,
+                            source: "by definition — one transaction is £1,000 of drawn balance carried for one month"}
+  capital_share_of_balance: {value: 0.1148, low: 0.1071, high: 0.1224, unit: share, tier: 2,
+                             source: "75% risk weight (CRR Art. 123, FACT) × ⚠ 12% total capital × (1 + 10% conversion on undrawn (Basel 3.1, PRA PS9/24, FACT) × ⚠ 1.9–3.6 undrawn per drawn); the rest of the book is funded by the pool's own credit balances (C10)", adverse: high}
+
+cashflow:
+  year1_units: 0.76            # Stage 1 — the migrated book ⚠ £0.4–1.9bn (central £1.15bn) ÷ £1.52bn per cell at steady state
+  year1_head_office_share: 1.0 # the head-office teams are the bank's existing functions, in place from month one
+  ramp_share_of_steady_state: [0.8125, 0.825, 0.8375, 0.85, 0.8625, 0.875, 0.8875, 0.9, 0.9125, 0.925, 0.9375, 0.95]  # unseasoned drawn share 0.80 (C8) rising as limits season over 8–24 months
+  opening_balance: 0
+  loan_amount: 0
+  loan_rate_annual: 0.0
+  loan_term_months: 12
+  other_equity: 5000000        # covers the stressed cash need in year one (⚠ 4.81m at the first run), rounded up
+  stress_revenue_reduction: 0.10
+
+forecast:
+  years: 5
+  units_open_by_year: [0.76, 3, 3, 3, 3]        # Stage 1 in year one; the two replicas released at months 13 and 19 (C3) take the line to all three cells in year two
+  head_office_share_by_year: [1.0, 1.0, 1.0, 1.0, 1.0]
+  equity_raised_by_year: [5000000, 0, 0, 0, 0]  # year one = cashflow.other_equity

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Credit facility line — business case</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Lora:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f5f4f1; --surface: #ffffff; --text: #0f1923; --text-secondary: #4a5568; --text-muted: #718096;
+      --border: #dde1e7; --border-strong: #b0b8c4; --accent: #1f4fa8; --accent-light: #e8eef8;
+      --panel-bg: #0f2744; --panel-text: #ffffff; --warning-bg: #fff8e6; --warning-border: #d4820a;
+      --inset-border: #1f4fa8; --tag-radius: 3px; --font-ui: 'DM Sans', system-ui, sans-serif;
+      --font-body: 'Lora', Georgia, serif; --width: 960px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-ui); font-size: 17px; line-height: 1.6; }
+    .container { max-width: var(--width); margin: 0 auto; padding: 40px 24px 80px; background: var(--surface); }
+    h1 { font-size: 30px; font-weight: 600; margin-bottom: 6px; }
+    h2 { font-size: 22px; font-weight: 600; margin: 40px 0 12px; padding-top: 16px; border-top: 1px solid var(--border); }
+    h3 { font-size: 18px; font-weight: 600; margin: 24px 0 8px; }
+    p { font-family: var(--font-body); margin-bottom: 12px; }
+    ul, ol { font-family: var(--font-body); padding-left: 1.5rem; margin-bottom: 12px; }
+    li { margin-bottom: 8px; }
+    .meta { font-size: 13px; letter-spacing: 0.04em; color: var(--text-muted); margin-bottom: 24px; font-family: var(--font-ui); }
+    .panel { background: var(--panel-bg); color: var(--panel-text); padding: 24px; margin: 24px 0; }
+    .panel p { color: var(--panel-text); }
+    .panel dl { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 24px; margin-top: 12px; }
+    .panel dt { font-size: 13px; letter-spacing: 0.04em; color: #b8c8e8; }
+    .panel dd { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
+    .panel .cite { color: #b8c8e8; }
+    .cite { font-family: var(--font-ui); font-size: 12px; color: var(--text-muted); letter-spacing: 0.02em; }
+    .cite::before { content: "·"; margin: 0 4px; }
+    dl.summary { display: grid; grid-template-columns: 220px 1fr; margin-bottom: 16px; }
+    dl.summary dt { font-weight: 600; padding: 8px 0; border-bottom: 1px solid var(--border); }
+    dl.summary dd { padding: 8px 0; border-bottom: 1px solid var(--border); font-family: var(--font-body); }
+    table { border-collapse: collapse; width: 100%; margin: 12px 0 20px; font-size: 15px; }
+    th { text-align: left; font-weight: 600; border-bottom: 2px solid var(--border-strong); padding: 8px 6px; }
+    td { padding: 8px 6px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    td.num, th.num { text-align: right; white-space: nowrap; }
+    .inset { border-left: 4px solid var(--inset-border); background: var(--accent-light); padding: 12px 16px; margin: 16px 0; }
+    .inset p { margin-bottom: 0; }
+    .warning { border-left: 4px solid var(--warning-border); background: var(--warning-bg); padding: 12px 16px; margin: 16px 0; }
+    .warning p { margin-bottom: 0; }
+    .tag { display: inline-block; font-size: 13px; font-weight: 500; padding: 1px 8px; border-radius: var(--tag-radius); border: 1px solid; }
+    .tag-green { background: #e6f4ec; color: #166534; border-color: #a7d4b8; }
+    .tag-yellow { background: #fef9e6; color: #854d0e; border-color: #f0d98a; }
+    .tag-grey { background: #f1f3f5; color: #4a5568; border-color: #d0d5dd; }
+    code { font-family: var(--font-ui); font-size: 13px; background: var(--accent-light); padding: 0 4px; border-radius: 3px; }
+    .appendix table { font-size: 13px; }
+    .appendix td { word-break: break-word; }
+    @media (max-width: 640px) { dl.summary { grid-template-columns: 1fr; } .panel dl { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<div class="container">
+
+<h1>Credit facility line — business case</h1>
+<p class="meta">Version v1.0 · 22 September 2026 · Evidence workbook: <code>bank-credit-facility-business-case-evidence.xlsx</code> · Every figure in this document is read at scenario 1, the base case, of that workbook · Format: GOV.UK <em>Write a business plan</em> (Start Up Loans template) · <span class="tag tag-grey">the bank is not named</span></p>
+
+<div class="panel">
+  <p>A standing credit limit on every eligible business current account at a large UK SME bank. The limit is computed daily from the account's own flow, drawn without an application and repaid by a share of receipts. One rate on the drawn balance, no fee.</p>
+  <dl>
+    <dt>Price per £1,000 drawn for one month</dt><dd>£11.67 <span class="cite">interim_price</span></dd>
+    <dt>Whole cost per £1,000 drawn for one month</dt><dd>£7.05 <span class="cite">cost_per_transaction</span></dd>
+    <dt>Margin of safety</dt><dd>65.5% — passes the 25% gate <span class="cite">margin_of_safety</span> <span class="cite">verdict</span></dd>
+    <dt>Extra cash needed in year one</dt><dd>£0 <span class="cite">cash_needed</span></dd>
+    <dt>Extra cash needed if revenue is 10% lower</dt><dd>£0 <span class="cite">cash_needed_stress</span></dd>
+    <dt>The input that moves the margin most</dt><dd>Expected credit loss on the drawn balance <span class="cite">binding_input</span></dd>
+  </dl>
+</div>
+
+<p>Every number in this document is a named cell in the evidence workbook. The name sits beside the number in small type. Open the workbook, find the name in the appendix, and the formula behind the number is there. Blue cells on the Master tab are the inputs; change one and every figure moves.</p>
+
+<div class="inset"><p>⚠ Every input marked ⚠ on the Master tab, and in the appendix, is an estimate. It comes from public sources or from the writer's own derivation. Someone inside the bank holds the real figure and should replace it. Every count of the bank's customers in this document is such an estimate.</p></div>
+
+<h2>1 · Your business and objectives</h2>
+
+<h3>What the business does</h3>
+<p>The bank sells its overdraft and its small term loan as products today. A customer applies and a person or a scorecard decides. The bank takes security. The limit is reviewed each year and a desk collects when it goes wrong. Most of what the bank pays for is that process.</p>
+<p>This venture makes the credit line a property of the account instead of a product. Every account with enough observed flow carries a standing limit, set daily by a rule on its own receipts. When a payment would take the balance below zero, the account funds it from the limit under a term the customer accepted once. Each receipt that follows repays a fixed share until the drawn balance is clear. The customer can switch the default funding off. No application, no security, no annual review, no collections desk.</p>
+<p>The customer pays one rate on the days a balance is drawn and nothing else. In the workbook that is £11.67 <span class="cite">in_product_0_price</span> per £1,000 drawn for one month, band £11.25 to £11.875, base £11.67. It is the design record's rate of 14.0% simple a year on the daily drawn balance, divided by twelve. That rate is £140 per £1,000 a year <span class="cite">in_product_0_price</span>. The rate sits below the bank's standard overdraft tariff, which also charges an arrangement fee and a renewal fee.</p>
+<p>The nearest real business is Square Loans in the United States. Since 2021 it has lent to sellers from their own observed receipts, funded inside Block's own bank beside those sellers' deposits. This design goes further: the bank is the account holder, not only the payment acquirer.</p>
+
+<div class="inset"><p>How the workbook models the line. One "transaction" is £1,000 <span class="cite">in_book_balance_per_transaction</span> of drawn balance carried for one month. A "customer" is a drawn account. Its transactions per month are its average drawn balance in thousands of pounds: 20 <span class="cite">in_market_transactions_per_customer_per_month</span> at base, band 15 to 25. An "operating unit" is one exception-handling cell — handlers, a lead and their tooling — serving one third of the reachable accounts. The "head office" is the bank's existing teams, charged at cost with no margin. The "book" lines are the balance lent, the deposits that fund it and the capital held against it.</p></div>
+
+<h3>The scale</h3>
+<p>The reachable population is 950,000 <span class="cite">in_market_total_reachable_population</span> accounts, an estimate of the bank's SME account base, band 850,000 to 1,050,000. Accounts with no observed flow cannot carry a limit: 20% <span class="cite">in_market_non_viable_share</span> at base, band 15% to 25%. That leaves 760,000 <span class="cite">tam</span> accounts with a limit. Of those, 30% <span class="cite">in_market_penetration_steady_state</span> are drawn at any time. One cell serves 316,667 <span class="cite">in_market_unit_population</span> accounts, of which 76,000 <span class="cite">customers_per_unit</span> are drawn. Three <span class="cite">units</span> cells cover the bank.</p>
+<p>At scale the drawn book is £4,560,004,800 <span class="cite">book_at_scale</span>. The bank holds £523,488,551 <span class="cite">book_capital_at_scale</span> of regulatory capital against it. Revenue at scale is £53,200,208 <span class="cite">venture_revenue_per_month</span> a month. After every cost, including the return on that capital and the tax on the return, the line returns £252,632,180 <span class="cite">venture_surplus_per_year</span> a year.</p>
+
+<h3>Objectives</h3>
+<dl class="summary">
+  <dt>Short term (this year)</dt>
+  <dd>Complete the back-test of the rule on the bank's own account history before any customer is exposed, at £550,000 <span class="cite">line_development_stage_0_back_test_on_the_bank_s_own_account_history</span>, band £300,000 to £800,000. Build the outcome ledger for £200,000 <span class="cite">line_development_outcome_ledger_build</span> and the seasoning schedule for £30,000 <span class="cite">line_development_seasoning_schedule_build</span>. Sign the funding term with treasury, drafted for £39,500 <span class="cite">line_development_funding_term</span>. Move the standard-tariff overdraft accounts onto the limit, with notices costing £575,000 <span class="cite">line_development_migration_notices_to_the_accounts_moving_to_the_levelled_line</span>. At the end of year one those accounts are 0.76 <span class="cite">in_forecast_units_open_year_1</span> of one cell. Carry 12,216,253 <span class="cite">year1_volume</span> transactions in the year for £142,523,357 <span class="cite">year1_sales</span>. Read the twelve-month loss on the migrated accounts. That reading decides whether the second stage opens.</dd>
+  <dt>Medium term (one to two years)</dt>
+  <dd>Release the two remaining cells as replicas, each read after six months against a loss band fixed before release. Three <span class="cite">in_forecast_units_open_year_2</span> cells are open at the end of year two, with revenue of £581,797,475 <span class="cite">forecast_revenue_year_2</span>. Document the standby securitisation route before the at-scale stage, for £2,000,000 <span class="cite">line_development_standby_securitisation_route_documentation_and_set_up</span>, and do not issue it. Reach the at-scale book of £4,560,004,800 <span class="cite">forecast_loan_book_year_3</span> in year three.</dd>
+</dl>
+
+<h3>The five-year line</h3>
+<p>The forecast statements on tabs 15 to 18 carry the roll-out from the migrated accounts to three <span class="cite">in_forecast_units_open_year_5</span> cells. Revenue grows from £142,523,357 <span class="cite">forecast_revenue_year_1</span> in year one to £638,402,496 <span class="cite">forecast_revenue_year_5</span> in year five, when every cell is at its steady-state book. The line is profitable from year one: £43,525,765 <span class="cite">forecast_profit_after_tax_year_1</span> after tax, rising to £258,150,704 <span class="cite">forecast_profit_after_tax_year_5</span> in year five. Over the five years, profit after tax totals £1,052,193,823 <span class="cite">forecast_profit_after_tax_total</span>. Net assets at the end of year five are £1,580,682,374 <span class="cite">forecast_net_assets_year_5</span>. There is no loan to repay <span class="cite">forecast_loan_outstanding_year_5</span>.</p>
+<table>
+  <thead><tr><th>Year</th><th class="num">Cells open</th><th class="num">Revenue</th><th class="num">Profit after tax</th><th class="num">Closing cash</th><th class="num">Loans to customers, year end</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td class="num">0.76 <span class="cite">in_forecast_units_open_year_1</span></td><td class="num">£142,523,357 <span class="cite">forecast_revenue_year_1</span></td><td class="num">£43,525,765 <span class="cite">forecast_profit_after_tax_year_1</span></td><td class="num">£63,034,353 <span class="cite">forecast_closing_cash_year_1</span></td><td class="num">£1,097,441,155 <span class="cite">forecast_loan_book_year_1</span></td></tr>
+    <tr><td>2</td><td class="num">3 <span class="cite">in_forecast_units_open_year_2</span></td><td class="num">£581,797,475 <span class="cite">forecast_revenue_year_2</span></td><td class="num">£234,215,946 <span class="cite">forecast_profit_after_tax_year_2</span></td><td class="num">£360,813,692 <span class="cite">forecast_closing_cash_year_2</span></td><td class="num">£4,389,764,621 <span class="cite">forecast_loan_book_year_2</span></td></tr>
+    <tr><td>3</td><td class="num">3 <span class="cite">in_forecast_units_open_year_3</span></td><td class="num">£638,402,496 <span class="cite">forecast_revenue_year_3</span></td><td class="num">£258,150,704 <span class="cite">forecast_profit_after_tax_year_3</span></td><td class="num">£626,942,649 <span class="cite">forecast_closing_cash_year_3</span></td><td class="num">£4,560,004,800 <span class="cite">forecast_loan_book_year_3</span></td></tr>
+    <tr><td>4</td><td class="num">3 <span class="cite">in_forecast_units_open_year_4</span></td><td class="num">£638,402,496 <span class="cite">forecast_revenue_year_4</span></td><td class="num">£258,150,704 <span class="cite">forecast_profit_after_tax_year_4</span></td><td class="num">£885,093,353 <span class="cite">forecast_closing_cash_year_4</span></td><td class="num">£4,560,004,800 <span class="cite">forecast_loan_book_year_4</span></td></tr>
+    <tr><td>5</td><td class="num">3 <span class="cite">in_forecast_units_open_year_5</span></td><td class="num">£638,402,496 <span class="cite">forecast_revenue_year_5</span></td><td class="num">£258,150,704 <span class="cite">forecast_profit_after_tax_year_5</span></td><td class="num">£1,143,244,057 <span class="cite">forecast_closing_cash_year_5</span></td><td class="num">£4,560,004,800 <span class="cite">forecast_loan_book_year_5</span></td></tr>
+  </tbody>
+</table>
+<p>The roll-out needs one equity contribution: £5,000,000 <span class="cite">in_forecast_equity_raised_year_1</span> in year one and nothing in year two <span class="cite">in_forecast_equity_raised_year_2</span> or after. With it, year-end cash is above zero in every year. The extra funding the five-year plan needs is £0 <span class="cite">forecast_funding_needed</span>.</p>
+<p>The balance the bank lends is funded separately, by the credit balances of the same pool of accounts. Those deposits are £971,454,911 <span class="cite">forecast_deposits_year_1</span> at the end of year one. They are £4,036,516,249 <span class="cite">forecast_deposits_year_5</span> at the end of year five. The capital held against the book is £125,986,245 <span class="cite">forecast_book_capital_year_1</span> at the end of year one and £523,488,551 <span class="cite">forecast_book_capital_year_5</span> at the end of year five. Both are the bank's balance sheet, not the venture's cash, and both sit on the forecast balance sheet, tab 18.</p>
+
+<h3>What the funding will be used for</h3>
+<table>
+  <thead><tr><th>Cost</th><th class="num">Amount</th><th>Reason</th></tr></thead>
+  <tbody>
+    <tr><td>Back-test of the rule on the bank's own account history</td><td class="num">£550,000 <span class="cite">line_development_stage_0_back_test_on_the_bank_s_own_account_history</span></td><td>Measures the loss rate before any customer is exposed; no release without it</td></tr>
+    <tr><td>Outcome ledger</td><td class="num">£200,000 <span class="cite">line_development_outcome_ledger_build</span></td><td>Records each day's limit and whether it cleared or was lost; the rule is re-fitted from it yearly</td></tr>
+    <tr><td>Seasoning schedule</td><td class="num">£30,000 <span class="cite">line_development_seasoning_schedule_build</span></td><td>The published steps by which a limit rises on the account's own cleared events</td></tr>
+    <tr><td>Credit-line element and conformance test</td><td class="num">£75,000 <span class="cite">line_development_credit_line_element_build_and_conformance_test</span></td><td>Publishes the limit as the account's pre-agreed credit line through the open-banking standard</td></tr>
+    <tr><td>Funding term</td><td class="num">£39,500 <span class="cite">line_development_funding_term</span></td><td>The signed term under which treasury supplies the line at the measured deposit cost, read daily</td></tr>
+    <tr><td>Migration notices</td><td class="num">£575,000 <span class="cite">line_development_migration_notices_to_the_accounts_moving_to_the_levelled_line</span></td><td>Moves the standard-tariff overdraft accounts onto the limit; handler time for those who decline or ask</td></tr>
+    <tr><td>Stage readings at each release gate</td><td class="num">£90,000 <span class="cite">line_development_stage_readings_at_each_release_gate</span></td><td>Three readings, at twelve months and at six months after each replica, against bands fixed in advance</td></tr>
+    <tr><td>Standby securitisation route</td><td class="num">£2,000,000 <span class="cite">line_development_standby_securitisation_route_documentation_and_set_up</span></td><td>Documented before the at-scale stage and never issued; holds the funding price to the market's</td></tr>
+    <tr><td>Carrying cost of the overlays during release</td><td class="num">£5,200,000 <span class="cite">line_development_carrying_cost_of_the_pool_overlays_during_release</span></td><td>The cost of capital held against each released stage until its reading; a charge for capital held, not a payment</td></tr>
+    <tr><td>Total one-time cost</td><td class="num">£8,759,500 <span class="cite">development_head_office</span></td><td>Charged to the cells at £145,992 <span class="cite">development_charge_per_month</span> a month over 60 <span class="cite">in_startup_investment_period_months</span> months</td></tr>
+  </tbody>
+</table>
+<p>There are no capital assets: £0 <span class="cite">capital_head_office</span> at head office and £0 <span class="cite">capital_per_unit</span> per cell. The limit engine runs on the bank's existing platform, and a cell needs no premises of its own. A cell has no start-up cost of its own either: £0 <span class="cite">startup_per_unit</span>. The charge is collected as the first slice of each receipts share from the first month. So no working capital is held: 0 months <span class="cite">in_startup_working_capital_months</span> at base.</p>
+<p>The funding in hand is £5,000,000 <span class="cite">in_cashflow_other_equity</span> of equity and no loan <span class="cite">in_cashflow_loan_amount</span>. With it, the year-one cash balance never falls below £1,284,269 <span class="cite">lowest_closing_balance</span> and closes the year at £63,034,353 <span class="cite">closing_balance_month12</span>. The year-one plan needs £0 <span class="cite">cash_needed</span> beyond that.</p>
+
+<h2>2 · Your skills and experience</h2>
+<p>The design names seats by role, not by person. Every seat but the exception cells is a function the bank already has. Who holds each seat is for the bank to name. The table records what each seat does and what brings it into being.</p>
+<table>
+  <thead><tr><th>Seat</th><th>Who holds it today</th><th>What it does and when it starts</th></tr></thead>
+  <tbody>
+    <tr><td>Limit engine and data team</td><td>The bank's existing data function, 25 people at £291,675 <span class="cite">line_ho_role_limit_engine_and_data_team</span> a month</td><td>From the start. Builds and runs the rule, the data pipeline, the outcome ledger and the yearly re-fit. No person decides an account.</td></tr>
+    <tr><td>Model risk and credit oversight</td><td>The bank's existing model-risk function, 10 people at £145,830 <span class="cite">line_ho_role_model_risk</span> a month</td><td>From the start. Owns the rule as a model, validates the back-test, reads each stage, signs the yearly re-fit.</td></tr>
+    <tr><td>Product, conduct and compliance</td><td>The bank's existing function, 13 people at £135,421 <span class="cite">line_ho_role_product</span> a month</td><td>From the start. The accepted term, the migration notices, the pre-contract information, the limit history as a financial promotion.</td></tr>
+    <tr><td>Pricing committee</td><td>Existing committee; no new people</td><td>Sets the one rate and reviews it yearly.</td></tr>
+    <tr><td>Treasury and the asset and liability committee</td><td>Existing functions; no new people</td><td>Sign the funding term, read the deposit cost daily and the cap monthly, review the trigger quarterly, administer the standby route.</td></tr>
+    <tr><td>Board risk committee</td><td>Existing committee</td><td>Signs each stage's release against its loss band, fixed before release.</td></tr>
+    <tr><td>Account-information team</td><td>Existing function; no new people</td><td>Publishes the credit-line element for released accounts and withholds it for unreleased ones; one conformance test.</td></tr>
+    <tr><td>Exception cell, one per third of the accounts</td><td>Nobody today. A full cell is 11 <span class="cite">headcount_per_unit</span> people at £54,587 <span class="cite">hr_cost_per_unit</span> a month</td><td>The first, partial cell opens with the migrated accounts; the second and third open with each replica. Handlers act when the flow stops, a signal fires or a customer disputes or asks.</td></tr>
+    <tr><td>The standby route's agents</td><td>Nobody today; external, fee for service</td><td>Engaged before the at-scale stage to document and refresh the master trust, at £37,500 <span class="cite">line_ho_running_standby_securitisation_route_annual_upkeep</span> a month.</td></tr>
+  </tbody>
+</table>
+<p>The gaps. Nobody in the bank has yet run a limit rule with no per-account decision at this scale. The back-test is the first proof, and model risk validates it as a model under the regulator's model-risk principles. The head-office people not named above are carried as a running-cost line of £37,500 <span class="cite">line_ho_running_other_head_office_people_the_all_people_total_less_the_named_teams</span> a month. A reserve of £150,000 <span class="cite">line_ho_running_reserve_against_the_assumed_head_office_count</span> a month is held against that count being wrong, band £0 to £300,333. The reserve is released when someone inside the bank reads the true count. That the existing functions can absorb the work without new people is an assumption from public sources, to confirm inside the bank.</p>
+
+<h2>3 · Your target customers</h2>
+<p>The customer is a business that holds its current account at the bank. Two kinds gain most. The first uses the bank's standard-tariff overdraft today and pays the tariff rate plus an arrangement fee and a renewal fee. The second has never borrowed but has enough flow to carry a limit. When a shortfall came, it put its own money in or went without. Both are already the bank's customers. Nobody has to be won from a rival.</p>
+<p>The need is a shortfall that the customer's own receipts will cover. It should be met without an application, security, a review or a bill on a fixed date. The conventional facility charges for all of those. The customer's cost is the rate, the fees, and the time and stress of the process. The design removes everything but the rate.</p>
+<p>The market is bounded from the bank's own base. 950,000 <span class="cite">in_market_total_reachable_population</span> reachable accounts, less 20% <span class="cite">in_market_non_viable_share</span> with no observed flow, leaves 760,000 <span class="cite">tam</span> accounts carrying a limit. 30% <span class="cite">in_market_penetration_steady_state</span> are drawn at any time: 76,000 <span class="cite">customers_per_unit</span> per cell. A drawn account carries an average balance of 20 <span class="cite">in_market_transactions_per_customer_per_month</span> thousand pounds, band 15 to 25. Every one of those figures is an estimate for someone inside the bank to replace.</p>
+
+<h3>How the price was set</h3>
+<p>The price was set in two steps. First against what the customer pays today: the standard tariff, which the rate must sit below. Then against cost.</p>
+<p>The whole cost of carrying £1,000 <span class="cite">in_book_balance_per_transaction</span> of drawn balance for one month is £7.05 <span class="cite">cost_per_transaction</span>. It includes the deposits that fund the balance at £1.875 <span class="cite">in_product_0_cogs</span>, band £1.25 to £2.50. It includes the expected credit loss at £2.50 <span class="cite">line_running_expected_credit_loss_on_the_drawn_balance</span>, band £1.67 to £3.33. It includes computing and payments at £0.30 <span class="cite">line_running_computing_and_payments_in_the_account_line</span> and write-off administration at £0.42 <span class="cite">line_running_write_off_administration_and_legal</span>. It includes the cell's people and tooling and the one-time costs spread over five years. It includes the head office's share, £445,977 <span class="cite">ho_allocated_per_unit</span> a month per cell. And it includes the return on the capital held against the book, at 13.5% <span class="cite">in_finance_cost_of_capital</span>, band 12% to 15%. The tax on that return is charged too.</p>
+<p>The price is £11.67 <span class="cite">interim_price</span>. The margin of safety is 65.5% <span class="cite">margin_of_safety</span>; the gate is 25% <span class="cite">in_finance_target_margin</span>. The price that would sit exactly at the gate is £8.81 <span class="cite">required_price</span>. The price can fall by £3.56 <span class="cite">price_fall_to_floor</span> before the margin reaches the 15% floor <span class="cite">margin_from_failure</span>. The rate is one number for every account with a limit, reviewed yearly by the pricing committee.</p>
+
+<h2>4 · Your market and competition</h2>
+<h3>Research done</h3>
+<p>This is a desk design. No customer was interviewed and no fieldwork was run. The Master tab gives every input a tier. Tier 1 is a fact by definition or regulation: what a transaction is <span class="cite">in_book_balance_per_transaction</span>, and the risk weight on the exposure. Tier 2 is a public rule applied to a public figure. The capital held against the book is one: 11.5% <span class="cite">in_book_capital_share_of_balance</span> of the drawn balance, band 10.7% to 12.2%. Tier 3 is a public figure applied by judgement: the price <span class="cite">in_product_0_price</span> and the cost of equity <span class="cite">in_finance_cost_of_capital</span>. Tier 4 is an estimate from public sources or the writer's own derivation, marked ⚠. Most of the inputs are tier 4. The conventional product on the same base was also costed from public sources. It was checked line by line against the public record of a UK non-bank lender.</p>
+<h3>Competitors</h3>
+<table>
+  <thead><tr><th></th><th>Competitor 1 — the standard business overdraft at the high-street banks, including this bank's own</th><th>Competitor 2 — a non-bank revolving credit line underwritten on bank-account data (iwoca is the public example)</th></tr></thead>
+  <tbody>
+    <tr><td>Location and website</td><td>Every UK high-street bank: in branch, by phone and in the banking app</td><td>Online only, UK-wide, and through brokers and accounting-software marketplaces</td></tr>
+    <tr><td>Prices</td><td>A published rate above this design's 14.0% <span class="cite">in_product_0_price</span>, plus an arrangement fee and a yearly renewal fee</td><td>Above the bank tariff. It funds from wholesale facilities, so its funding cost is above the deposit cost this design pays <span class="cite">in_product_0_cogs</span></td></tr>
+    <tr><td>Strengths</td><td>The account relationship, the brand, the branch, the existing pre-approved limits</td><td>Speed of decision, no security, a credit line rather than a loan, a scoring model built on years of its own data</td></tr>
+    <tr><td>Weaknesses</td><td>The application, security above a threshold, the annual review, the collections desk, and the fees that pay for them</td><td>No account base, so it buys every customer through brokers and marketing. It funds at the market. It built its loss history from nothing over years</td></tr>
+  </tbody>
+</table>
+<h3>What sets this line apart</h3>
+<p>Three things, none a marketing claim. First, the limit rises in steps on the account's own cleared events. The record of those events belongs to the customer and stays with the bank, because the bank was there when it was made. Second, the rule's parameters are re-fitted each year on an outcome ledger. The ledger records the limit in force on each day and whether it cleared or was lost. No consented data feed carries that column, so a rival must build it over years. Third, the drawn balances are funded by the credit balances of the same pool of accounts. The price is the measured deposit cost, under a signed term read daily. A rival without a current-account pool funds at the market, and at the market this design does not clear its own margin. A bank that has both can run this form. A lender that has neither cannot copy it at this price.</p>
+<p>The design does not claim a switching cost. The limit is published to every reader through the open-banking standard, and a published limit can be reconstructed by a rival. The protection against copying is the ledger and the deposit funding, not the customer's inability to leave.</p>
+<h3>Strengths, weaknesses, opportunities and threats</h3>
+<ul>
+  <li>strengths: the margin of safety at base is 65.5% <span class="cite">margin_of_safety</span>, well above the 25% gate <span class="cite">in_finance_target_margin</span>. The customers are already the bank's. There is no capital asset and no working capital</li>
+  <li>weaknesses: the expected credit loss on a pool underwritten from flow has never been measured. It is the input that moves the margin most <span class="cite">binding_input</span>. Every ⚠ input is an estimate</li>
+  <li>opportunities: accounts that today hold a negotiated overdraft, a loan or nothing at all also carry a limit and draw on it. That share of the book is unmeasured. The shadow run reads it before release</li>
+  <li>threats: a loss rate at the top of its band, 4% a year <span class="cite">in_running_expected_credit_loss_on_the_drawn_balance_amount</span>. A deposit cost at the top of its band, 3% a year <span class="cite">in_product_0_cogs</span>. Treasury re-pricing the funding to the market; the funding term and the standby route exist to prevent that</li>
+</ul>
+
+<h2>5 · Your sales and marketing plans</h2>
+<p>No customer is sold to. The limit appears in the account of every eligible customer before any need arises. So there is no marketing line, no broker commission and no relationship manager's outreach in the cost. The head-office running cost of £495,834 <span class="cite">running_head_office</span> a month carries technology, fraud monitoring, the other head-office people, the standby route's upkeep and the reserve. None of it is marketing.</p>
+<p>Customers hear of the limit three ways. The migrated overdraft customers receive a notice. Once a year they receive a saving statement: what the overdraft cost before and what the limit has cost since. The notices are the one-time line of £575,000 <span class="cite">line_development_migration_notices_to_the_accounts_moving_to_the_levelled_line</span>. Every other eligible customer sees the limit beside the balance in the account, with its own twelve-month history. Nobody has to be told that a person decided. And the limit is published as the account's pre-agreed credit line through the open-banking standard. The customer's accounting software then shows it beside the balance and counts it in its cash forecast. That build and its conformance test are a one-time £75,000 <span class="cite">line_development_credit_line_element_build_and_conformance_test</span>. No partner is paid.</p>
+<p>Customers choose it because it is already there when the shortfall comes, and because the price is one rate with no fee. They keep using it because the limit rises on their own cleared events and the record is theirs. The channel's whole cost is the two one-time lines above. Answering questions about the limit, a funded payment or the charge is a recurring cost. It sits inside the exception cell's staffing of £54,587 <span class="cite">hr_cost_per_unit</span> a month.</p>
+
+<h2>6 · Your operational plans</h2>
+<h3>Key suppliers and relationships</h3>
+<table>
+  <thead><tr><th>Relationship</th><th>Status</th><th>Key terms</th></tr></thead>
+  <tbody>
+    <tr><td>Treasury — funding of the drawn book from the pool's own credit balances</td><td>Term drafted; to be signed by the asset and liability committee before release</td><td>The measured deposit cost, read daily: £1.875 <span class="cite">in_product_0_cogs</span> per £1,000 drawn for one month, band £1.25 to £2.50. The drawn book is capped at a fixed share of the pool's credit balances. Drafting cost £39,500 <span class="cite">line_development_funding_term</span></td></tr>
+    <tr><td>The standby securitisation route — a master trust on the outcome ledger</td><td>To be documented before the at-scale stage; issued only if treasury's price exceeds the route's cost for two quarters</td><td>Set-up £2,000,000 <span class="cite">line_development_standby_securitisation_route_documentation_and_set_up</span> once; upkeep £37,500 <span class="cite">line_ho_running_standby_securitisation_route_annual_upkeep</span> a month to external agents</td></tr>
+    <tr><td>The core banking platform and cloud computing</td><td>Existing</td><td>Technology run £166,667 <span class="cite">line_ho_running_technology_run_the_limit_engine</span> a month; computing and payments £0.30 <span class="cite">line_running_computing_and_payments_in_the_account_line</span> per £1,000 drawn for one month</td></tr>
+    <tr><td>A credit bureau — the fraud and conduct signal only</td><td>Existing contract; two other bureaus available</td><td>Inside computing. Fraud monitoring on funded events £104,167 <span class="cite">line_ho_running_fraud_monitoring_on_funded_events</span> a month</td></tr>
+    <tr><td>External collection agents and solicitors — write-offs</td><td>Existing panels; contracts under a year</td><td>£0.42 <span class="cite">line_running_write_off_administration_and_legal</span> per £1,000 drawn for one month</td></tr>
+    <tr><td>The open-banking standard body and the aggregators</td><td>Public and mandated</td><td>No fee. The aggregator is paid by the accounting platform, not by the venture</td></tr>
+  </tbody>
+</table>
+<h3>Staff</h3>
+<p>Now: no new people. The head office is the bank's existing teams. It has 25 in the limit engine and data team <span class="cite">line_ho_role_limit_engine_and_data_team</span> and 10 in model risk <span class="cite">line_ho_role_model_risk</span>. It has 13 in product, conduct and compliance <span class="cite">line_ho_role_product</span>. Together they cost £572,926 <span class="cite">ho_staff_cost</span> a month.</p>
+<p>In twelve months: the first exception cell, staffed to the migrated accounts, is 0.76 <span class="cite">in_forecast_units_open_year_1</span> of a full cell. A full cell is 11 <span class="cite">headcount_per_unit</span> people, handlers and a lead, costing £54,587 <span class="cite">hr_cost_per_unit</span> a month. One trainer is shared across the cells at £2,083 <span class="cite">line_running_shared_trainer</span> a month. Handlers act only when the flow stops, a signal fires, or a customer disputes or asks. Nobody decides an account. The staffing is built from the work: hours per event, times events a year, divided by 125 <span class="cite">in_hr_available_hours</span> productive hours a month per person. The HR tab shows each role's hours and how full each person is.</p>
+<h3>Premises</h3>
+<p>None new. The cells sit in the bank's existing operations premises, and the engine runs on the bank's existing platform. Capital assets are £0 <span class="cite">capital_head_office</span> at head office and £0 <span class="cite">capital_per_unit</span> per cell. Cell tooling, the case system and telephony, is a running cost of £23,750 <span class="cite">line_running_cell_tooling_case_system_and_telephony</span> a month.</p>
+<h3>Laws, regulations and insurance</h3>
+<p>The bank's permissions do not change. The limit rule is a model under the regulator's model-risk principles. Model risk validates it. The board risk committee signs each release against a loss band fixed in advance. The parameters are re-fitted yearly and approved. Small sole-trader agreements fall under the Consumer Credit Act, so product, conduct and compliance draft the accepted term and the pre-contract information once. The limit history shown in the account is signed off as a financial promotion and reviewed yearly. The outcome ledger is recorded under data-protection law as a decision about a rule, not about a person.</p>
+<p>Capital is held against the drawn and undrawn exposure at 11.5% <span class="cite">in_book_capital_share_of_balance</span> of the drawn balance. That share comes from the regulatory risk weight and the conversion factor on undrawn commitments. Corporation tax is charged at 25% <span class="cite">in_finance_tax_rate</span>. On insurance the design record is silent. The venture sits inside the bank's existing cover; that is an assumption to confirm, not a fact.</p>
+
+<h2>7 · Back-up plan</h2>
+<div class="warning"><p>⚠ There is no loan to repay <span class="cite">loan_repayment_per_month</span>. The year-one plan needs £0 <span class="cite">cash_needed</span> beyond the £5,000,000 <span class="cite">in_cashflow_other_equity</span> of equity in hand, and £0 <span class="cite">cash_needed_stress</span> if revenue is 10% <span class="cite">in_cashflow_stress_revenue_reduction</span> below forecast. Under that stress the lowest cash balance in year one is £189,231 <span class="cite">lowest_closing_balance_stress</span>, against £1,284,269 <span class="cite">lowest_closing_balance</span> in the base case.</p></div>
+<p>The margin of safety is the protection. Three readings from the Pricing tab say how large it is and what reduces it.</p>
+<ol>
+  <li>The price can fall by £3.56 <span class="cite">price_fall_to_floor</span> per £1,000 drawn for one month before the margin reaches the 15% floor. At base the margin is 50.5 <span class="cite">margin_from_failure</span> points above that floor. The price band on the Master tab is narrow, £11.25 to £11.875 <span class="cite">in_product_0_price</span>. The rate was set below the tariff and above the cost floor. Price is not the input that decides the case.</li>
+  <li>The input that moves the margin most is the expected credit loss on the drawn balance <span class="cite">binding_input</span>. Its base is £2.50 <span class="cite">line_running_expected_credit_loss_on_the_drawn_balance</span> per £1,000 drawn for one month. That is a loss rate of 3% a year, inside a band of 2% to 4% <span class="cite">in_running_expected_credit_loss_on_the_drawn_balance_amount</span>. Nobody has measured it on a pool underwritten from flow. The design's answer is the first stage of the release: a back-test of the rule on the bank's own account history. It costs £550,000 <span class="cite">line_development_stage_0_back_test_on_the_bank_s_own_account_history</span> and runs before any customer is exposed. The twelve-month reading on the migrated accounts then confirms it before the first replica opens. If a reading is above its band, no replica is released and the design returns to its first step.</li>
+  <li>If every banded input lands at its adverse end at once, the margin is 14.5% <span class="cite">margin_of_safety_worst_corner</span>. That corner puts the price at the bottom of its band. It puts the loss rate at 4% a year <span class="cite">in_running_expected_credit_loss_on_the_drawn_balance_amount</span>. It puts the deposit cost at 3% a year <span class="cite">in_product_0_cogs</span>. It puts the drawn balances at the small end of their band <span class="cite">in_market_transactions_per_customer_per_month</span> and the head-office reserve in full at £300,333 <span class="cite">line_ho_running_reserve_against_the_assumed_head_office_count</span> a month. It lands below the 25% gate <span class="cite">in_finance_target_margin</span> and below the 15% floor. The base case passes at 65.5% <span class="cite">margin_of_safety</span>. The worst corner is the case for releasing in stages, each against a loss band fixed in advance. No replica opens until the stage before it has read inside its band.</li>
+</ol>
+<p>One difference between this workbook and the design record's own simulation should be named. The workbook charges corporation tax on the return required on the capital held against the book. That tax is £490,771 <span class="cite">tax_per_unit</span> per cell a month, at 25% <span class="cite">in_finance_tax_rate</span>. The design record's simulation did not. The cost of equity is 12% to 15% <span class="cite">in_finance_cost_of_capital</span>. If that is an after-tax target, the workbook's cost floor is right. The design record's margins are then about five points too high.</p>
+<p>Beyond year one, the forecast cash flow on tab 17 is the test. Its lowest year-end balance is the year-one figure, £63,034,353 <span class="cite">forecast_lowest_closing_cash</span>, so the extra funding the five-year plan needs is £0 <span class="cite">forecast_funding_needed</span>. If a stage reading fails, the roll-out stops at the cells already open. The head office runs at its full cost from year one, 100% <span class="cite">in_forecast_head_office_share_year_1</span>. In the base case the migrated accounts alone carry it. Year one closes with £43,525,765 <span class="cite">forecast_profit_after_tax_year_1</span> after tax.</p>
+<p>If the loss reading fails at the first stage, the position is the one the bank holds today. The migrated accounts return to a facility form. The one-time lines spent to that point are written off: the back-test, the ledger, the schedule, the element, the term and the notices. The standby route's set-up of £2,000,000 <span class="cite">line_development_standby_securitisation_route_documentation_and_set_up</span> and the overlays' carrying cost of £5,200,000 <span class="cite">line_development_carrying_cost_of_the_pool_overlays_during_release</span> are not incurred, because both come after that reading. That is the realistic floor, and it does not need a second stage to be true.</p>
+
+<div class="appendix">
+<h2 id="appendix">Where each number lives</h2>
+<p>The four tables below list every named cell in the evidence workbook <code>bank-credit-facility-business-case-evidence.xlsx</code>, with its base value and what it means. Every ⚠ marks an estimate for someone inside the bank to replace.</p>
+<h3>Results</h3>
+<table><thead><tr><th>Name</th><th>Cell</th><th class="num">Base value</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>scenario</code></td><td>'1 Master'!$B$4</td><td class="num">1</td><td>Scenario switch: 1 base, 2 all-low, 3 all-high</td></tr>
+<tr><td><code>tam</code></td><td>'2 Customers'!$B$5</td><td class="num">760,000</td><td>Total addressable market, households or customers</td></tr>
+<tr><td><code>units</code></td><td>'2 Customers'!$B$6</td><td class="num">3</td><td>Number of operating units at scale</td></tr>
+<tr><td><code>customers_per_unit</code></td><td>'2 Customers'!$B$9</td><td class="num">76,000</td><td>Customer base per operating unit at steady state</td></tr>
+<tr><td><code>transactions_per_unit</code></td><td>'2 Customers'!$B$10</td><td class="num">1,520,002</td><td>Transactions per operating unit per month at steady state</td></tr>
+<tr><td><code>transactions_venture</code></td><td>'2 Customers'!$B$11</td><td class="num">4,560,005</td><td>Transactions across the venture per month at steady state</td></tr>
+<tr><td><code>revenue_per_unit</code></td><td>'2 Customers'!$E$15</td><td class="num">17,733,403</td><td>Revenue per operating unit per month at interim prices</td></tr>
+<tr><td><code>cogs_per_unit</code></td><td>'2 Customers'!$G$15</td><td class="num">2,850,003</td><td>Cost of goods per operating unit per month</td></tr>
+<tr><td><code>headcount_per_unit</code></td><td>'3 HR'!$D$20</td><td class="num">11</td><td>Headcount per operating unit</td></tr>
+<tr><td><code>hr_cost_per_unit</code></td><td>'3 HR'!$F$20</td><td class="num">54,587</td><td>Staff cost per operating unit per month</td></tr>
+<tr><td><code>ho_staff_cost</code></td><td>'3 HR'!$D$27</td><td class="num">572,926</td><td>Head-office staff cost per month</td></tr>
+<tr><td><code>capital_per_unit</code></td><td>'4 Depreciation'!$F$5</td><td class="num">0</td><td>Capital assets per operating unit</td></tr>
+<tr><td><code>depreciation_per_unit</code></td><td>'4 Depreciation'!$G$5</td><td class="num">0</td><td>Depreciation per operating unit per month</td></tr>
+<tr><td><code>capital_head_office</code></td><td>'4 Depreciation'!$F$8</td><td class="num">0</td><td>Head-office capital assets</td></tr>
+<tr><td><code>depreciation_head_office</code></td><td>'4 Depreciation'!$G$8</td><td class="num">0</td><td>Head-office depreciation per month</td></tr>
+<tr><td><code>running_per_unit</code></td><td>'5 Running'!$E$10</td><td class="num">4,911,422</td><td>General running cost per operating unit per month</td></tr>
+<tr><td><code>running_head_office</code></td><td>'5 Running'!$E$20</td><td class="num">495,834</td><td>Head-office running cost per month</td></tr>
+<tr><td><code>startup_per_unit</code></td><td>'6 Start-up'!$B$7</td><td class="num">0</td><td>Start-up cost per operating unit (one-time plus working capital)</td></tr>
+<tr><td><code>startup_charge_per_unit</code></td><td>'6 Start-up'!$B$9</td><td class="num">0</td><td>Start-up charge per operating unit per month</td></tr>
+<tr><td><code>development_head_office</code></td><td>'6 Start-up'!$B$21</td><td class="num">8,759,500</td><td>Head-office development cost, one-time</td></tr>
+<tr><td><code>development_charge_per_month</code></td><td>'6 Start-up'!$B$22</td><td class="num">145,992</td><td>Head-office development charge per month</td></tr>
+<tr><td><code>book_per_unit</code></td><td>'7 Returns'!$B$4</td><td class="num">1,520,001,600</td><td>Loan book one operating unit carries (balance outstanding)</td></tr>
+<tr><td><code>book_capital_per_unit</code></td><td>'7 Returns'!$B$5</td><td class="num">174,496,184</td><td>Capital the venture holds against one unit's book</td></tr>
+<tr><td><code>returns_per_unit</code></td><td>'7 Returns'!$B$8</td><td class="num">1,963,082</td><td>Investment return required per operating unit per month</td></tr>
+<tr><td><code>returns_head_office</code></td><td>'7 Returns'!$B$10</td><td class="num">98,544</td><td>Investment return required at head office per month</td></tr>
+<tr><td><code>book_at_scale</code></td><td>'7 Returns'!$B$11</td><td class="num">4,560,004,800</td><td>Loan book at scale — balance outstanding across every unit</td></tr>
+<tr><td><code>book_capital_at_scale</code></td><td>'7 Returns'!$B$12</td><td class="num">523,488,551</td><td>Capital held against the book at scale</td></tr>
+<tr><td><code>tax_per_unit</code></td><td>'8 Tax'!$B$5</td><td class="num">490,771</td><td>Tax per operating unit per month</td></tr>
+<tr><td><code>tax_head_office</code></td><td>'8 Tax'!$B$6</td><td class="num">24,636</td><td>Tax at head office per month</td></tr>
+<tr><td><code>unit_own_cost</code></td><td>'9 Unit costs'!$B$12</td><td class="num">10,269,865</td><td>Operating unit's own costs per month, before head office</td></tr>
+<tr><td><code>ho_costs</code></td><td>'9 Unit costs'!$B$13</td><td class="num">1,337,932</td><td>Head-office costs per month</td></tr>
+<tr><td><code>ho_total</code></td><td>'9 Unit costs'!$B$15</td><td class="num">1,337,932</td><td>Head-office costs plus target profit per month</td></tr>
+<tr><td><code>ho_allocated_per_unit</code></td><td>'9 Unit costs'!$B$16</td><td class="num">445,977</td><td>Head office allocated per operating unit per month</td></tr>
+<tr><td><code>whole_cost_per_unit</code></td><td>'9 Unit costs'!$B$17</td><td class="num">10,715,842</td><td>Whole cost per operating unit per month</td></tr>
+<tr><td><code>cost_per_transaction</code></td><td>'9 Unit costs'!$B$18</td><td class="num">7.05</td><td>Whole cost per transaction — the cost floor</td></tr>
+<tr><td><code>margin_of_safety</code></td><td>'10 Pricing'!$B$6</td><td class="num">65.5%</td><td>Margin of safety at the interim price, base scenario</td></tr>
+<tr><td><code>interim_price</code></td><td>'10 Pricing'!$B$5</td><td class="num">11.67</td><td>Interim price per transaction</td></tr>
+<tr><td><code>verdict</code></td><td>'10 Pricing'!$B$8</td><td class="num">PASS</td><td>Verdict on the margin of safety: PASS, BORDERLINE or FAIL</td></tr>
+<tr><td><code>required_price</code></td><td>'10 Pricing'!$B$9</td><td class="num">8.81</td><td>Required price per transaction at the target margin of safety</td></tr>
+<tr><td><code>price_uplift_to_target</code></td><td>'10 Pricing'!$B$10</td><td class="num">75.5%</td><td>Price uplift needed to reach the target margin of safety (required ÷ interim)</td></tr>
+<tr><td><code>margin_from_failure</code></td><td>'10 Pricing'!$B$11</td><td class="num">50.5%</td><td>Margin of safety less the 15% floor, in percentage points</td></tr>
+<tr><td><code>price_fall_to_floor</code></td><td>'10 Pricing'!$B$12</td><td class="num">3.56</td><td>Price fall per transaction that takes the margin of safety to the 15% floor</td></tr>
+<tr><td><code>required_price_product_1</code></td><td>'10 Pricing'!$C$15</td><td class="num">8.81</td><td>Required price at the target margin of safety — Drawn balance, per £1,000 carried for one month</td></tr>
+<tr><td><code>binding_input</code></td><td>'10 Pricing'!$B$54</td><td class="num">Running cost, operating unit — Expected credit loss on the drawn balance</td><td>The input whose adverse end lowers the margin of safety most</td></tr>
+<tr><td><code>margin_of_safety_worst_corner</code></td><td>'10 Pricing'!$B$55</td><td class="num">14.5%</td><td>Margin of safety with every banded input at its adverse end</td></tr>
+<tr><td><code>unit_surplus</code></td><td>'11 Unit P&amp;L'!$B$17</td><td class="num">7,017,561</td><td>Surplus per operating unit per month at the interim price</td></tr>
+<tr><td><code>unit_surplus_at_required</code></td><td>'11 Unit P&amp;L'!$C$17</td><td class="num">2,678,961</td><td>Surplus per operating unit per month at the required price</td></tr>
+<tr><td><code>venture_surplus_per_month</code></td><td>'12 Venture P&amp;L'!$D$20</td><td class="num">21,052,682</td><td>Venture surplus per month at scale, interim price</td></tr>
+<tr><td><code>venture_surplus_per_year</code></td><td>'12 Venture P&amp;L'!$D$21</td><td class="num">252,632,180</td><td>Venture surplus per year at scale, interim price</td></tr>
+<tr><td><code>venture_revenue_per_month</code></td><td>'12 Venture P&amp;L'!$D$5</td><td class="num">53,200,208</td><td>Venture revenue per month at scale</td></tr>
+<tr><td><code>year1_sales</code></td><td>'13 Sales'!$N$12</td><td class="num">142,523,357</td><td>Sales in year one, the units open in year one</td></tr>
+<tr><td><code>year1_volume</code></td><td>'13 Sales'!$N$14</td><td class="num">12,216,253</td><td>Transactions in year one</td></tr>
+<tr><td><code>loan_repayment_per_month</code></td><td>'14 Cash flow'!$B$7</td><td class="num">0</td><td>Monthly loan repayment</td></tr>
+<tr><td><code>lowest_closing_balance</code></td><td>'14 Cash flow'!$B$29</td><td class="num">1,284,269</td><td>Lowest closing cash balance in year one</td></tr>
+<tr><td><code>lowest_closing_balance_stress</code></td><td>'14 Cash flow'!$B$30</td><td class="num">189,231</td><td>Lowest closing cash balance in year one under the revenue stress test</td></tr>
+<tr><td><code>closing_balance_month12</code></td><td>'14 Cash flow'!$B$31</td><td class="num">63,034,353</td><td>Closing cash balance at the end of year one</td></tr>
+<tr><td><code>cash_needed</code></td><td>'14 Cash flow'!$B$32</td><td class="num">0</td><td>Extra cash needed to keep the balance at or above zero</td></tr>
+<tr><td><code>cash_needed_stress</code></td><td>'14 Cash flow'!$B$33</td><td class="num">0</td><td>Extra cash needed under the stress test</td></tr>
+<tr><td><code>forecast_loan_book_year_1</code></td><td>'15 Roll-out'!$B$11</td><td class="num">1,097,441,155</td><td>Loans to customers at the end of year 1</td></tr>
+<tr><td><code>forecast_loan_book_year_2</code></td><td>'15 Roll-out'!$C$11</td><td class="num">4,389,764,621</td><td>Loans to customers at the end of year 2</td></tr>
+<tr><td><code>forecast_loan_book_year_3</code></td><td>'15 Roll-out'!$D$11</td><td class="num">4,560,004,800</td><td>Loans to customers at the end of year 3</td></tr>
+<tr><td><code>forecast_loan_book_year_4</code></td><td>'15 Roll-out'!$E$11</td><td class="num">4,560,004,800</td><td>Loans to customers at the end of year 4</td></tr>
+<tr><td><code>forecast_loan_book_year_5</code></td><td>'15 Roll-out'!$F$11</td><td class="num">4,560,004,800</td><td>Loans to customers at the end of year 5</td></tr>
+<tr><td><code>forecast_revenue_year_1</code></td><td>'16 Forecast P&amp;L'!$B$5</td><td class="num">142,523,357</td><td>Forecast revenue, year 1</td></tr>
+<tr><td><code>forecast_operating_profit_year_1</code></td><td>'16 Forecast P&amp;L'!$B$15</td><td class="num">58,034,353</td><td>Forecast operating profit, year 1</td></tr>
+<tr><td><code>forecast_profit_after_tax_year_1</code></td><td>'16 Forecast P&amp;L'!$B$22</td><td class="num">43,525,765</td><td>Forecast profit after tax, year 1</td></tr>
+<tr><td><code>forecast_revenue_year_2</code></td><td>'16 Forecast P&amp;L'!$C$5</td><td class="num">581,797,475</td><td>Forecast revenue, year 2</td></tr>
+<tr><td><code>forecast_operating_profit_year_2</code></td><td>'16 Forecast P&amp;L'!$C$15</td><td class="num">312,287,928</td><td>Forecast operating profit, year 2</td></tr>
+<tr><td><code>forecast_profit_after_tax_year_2</code></td><td>'16 Forecast P&amp;L'!$C$22</td><td class="num">234,215,946</td><td>Forecast profit after tax, year 2</td></tr>
+<tr><td><code>forecast_revenue_year_3</code></td><td>'16 Forecast P&amp;L'!$D$5</td><td class="num">638,402,496</td><td>Forecast revenue, year 3</td></tr>
+<tr><td><code>forecast_operating_profit_year_3</code></td><td>'16 Forecast P&amp;L'!$D$15</td><td class="num">344,200,939</td><td>Forecast operating profit, year 3</td></tr>
+<tr><td><code>forecast_profit_after_tax_year_3</code></td><td>'16 Forecast P&amp;L'!$D$22</td><td class="num">258,150,704</td><td>Forecast profit after tax, year 3</td></tr>
+<tr><td><code>forecast_revenue_year_4</code></td><td>'16 Forecast P&amp;L'!$E$5</td><td class="num">638,402,496</td><td>Forecast revenue, year 4</td></tr>
+<tr><td><code>forecast_operating_profit_year_4</code></td><td>'16 Forecast P&amp;L'!$E$15</td><td class="num">344,200,939</td><td>Forecast operating profit, year 4</td></tr>
+<tr><td><code>forecast_profit_after_tax_year_4</code></td><td>'16 Forecast P&amp;L'!$E$22</td><td class="num">258,150,704</td><td>Forecast profit after tax, year 4</td></tr>
+<tr><td><code>forecast_revenue_year_5</code></td><td>'16 Forecast P&amp;L'!$F$5</td><td class="num">638,402,496</td><td>Forecast revenue, year 5</td></tr>
+<tr><td><code>forecast_operating_profit_year_5</code></td><td>'16 Forecast P&amp;L'!$F$15</td><td class="num">344,200,939</td><td>Forecast operating profit, year 5</td></tr>
+<tr><td><code>forecast_profit_after_tax_year_5</code></td><td>'16 Forecast P&amp;L'!$F$22</td><td class="num">258,150,704</td><td>Forecast profit after tax, year 5</td></tr>
+<tr><td><code>forecast_revenue_total</code></td><td>'16 Forecast P&amp;L'!$G$5</td><td class="num">2,639,528,320</td><td>Forecast revenue over years one to 5</td></tr>
+<tr><td><code>forecast_operating_profit_total</code></td><td>'16 Forecast P&amp;L'!$G$15</td><td class="num">1,402,925,097</td><td>Forecast operating profit over years one to 5</td></tr>
+<tr><td><code>forecast_profit_after_tax_total</code></td><td>'16 Forecast P&amp;L'!$G$22</td><td class="num">1,052,193,823</td><td>Forecast profit after tax over years one to 5</td></tr>
+<tr><td><code>forecast_closing_cash_year_1</code></td><td>'17 Forecast cash flow'!$B$22</td><td class="num">63,034,353</td><td>Forecast closing cash, end of year 1</td></tr>
+<tr><td><code>forecast_closing_cash_year_2</code></td><td>'17 Forecast cash flow'!$C$22</td><td class="num">360,813,692</td><td>Forecast closing cash, end of year 2</td></tr>
+<tr><td><code>forecast_closing_cash_year_3</code></td><td>'17 Forecast cash flow'!$D$22</td><td class="num">626,942,649</td><td>Forecast closing cash, end of year 3</td></tr>
+<tr><td><code>forecast_closing_cash_year_4</code></td><td>'17 Forecast cash flow'!$E$22</td><td class="num">885,093,353</td><td>Forecast closing cash, end of year 4</td></tr>
+<tr><td><code>forecast_closing_cash_year_5</code></td><td>'17 Forecast cash flow'!$F$22</td><td class="num">1,143,244,057</td><td>Forecast closing cash, end of year 5</td></tr>
+<tr><td><code>forecast_lowest_closing_cash</code></td><td>'17 Forecast cash flow'!$B$24</td><td class="num">63,034,353</td><td>Lowest year-end cash balance across the forecast</td></tr>
+<tr><td><code>forecast_funding_needed</code></td><td>'17 Forecast cash flow'!$B$25</td><td class="num">0</td><td>Extra funding needed to keep year-end cash at or above zero across the forecast</td></tr>
+<tr><td><code>forecast_net_assets_year_1</code></td><td>'18 Forecast balance sheet'!$B$13</td><td class="num">174,512,009</td><td>Forecast net assets, end of year 1</td></tr>
+<tr><td><code>forecast_loan_outstanding_year_1</code></td><td>'18 Forecast balance sheet'!$B$9</td><td class="num">0</td><td>Loan outstanding, end of year 1</td></tr>
+<tr><td><code>forecast_deposits_year_1</code></td><td>'18 Forecast balance sheet'!$B$11</td><td class="num">971,454,911</td><td>Deposits funding the book, end of year 1</td></tr>
+<tr><td><code>forecast_book_capital_year_1</code></td><td>'18 Forecast balance sheet'!$B$17</td><td class="num">125,986,245</td><td>Capital held against the book, end of year 1</td></tr>
+<tr><td><code>forecast_net_assets_year_2</code></td><td>'18 Forecast balance sheet'!$C$13</td><td class="num">786,686,689</td><td>Forecast net assets, end of year 2</td></tr>
+<tr><td><code>forecast_loan_outstanding_year_2</code></td><td>'18 Forecast balance sheet'!$C$9</td><td class="num">0</td><td>Loan outstanding, end of year 2</td></tr>
+<tr><td><code>forecast_deposits_year_2</code></td><td>'18 Forecast balance sheet'!$C$11</td><td class="num">3,885,819,642</td><td>Deposits funding the book, end of year 2</td></tr>
+<tr><td><code>forecast_book_capital_year_2</code></td><td>'18 Forecast balance sheet'!$C$17</td><td class="num">503,944,978</td><td>Capital held against the book, end of year 2</td></tr>
+<tr><td><code>forecast_net_assets_year_3</code></td><td>'18 Forecast balance sheet'!$D$13</td><td class="num">1,064,380,966</td><td>Forecast net assets, end of year 3</td></tr>
+<tr><td><code>forecast_loan_outstanding_year_3</code></td><td>'18 Forecast balance sheet'!$D$9</td><td class="num">0</td><td>Loan outstanding, end of year 3</td></tr>
+<tr><td><code>forecast_deposits_year_3</code></td><td>'18 Forecast balance sheet'!$D$11</td><td class="num">4,036,516,249</td><td>Deposits funding the book, end of year 3</td></tr>
+<tr><td><code>forecast_book_capital_year_3</code></td><td>'18 Forecast balance sheet'!$D$17</td><td class="num">523,488,551</td><td>Capital held against the book, end of year 3</td></tr>
+<tr><td><code>forecast_net_assets_year_4</code></td><td>'18 Forecast balance sheet'!$E$13</td><td class="num">1,322,531,670</td><td>Forecast net assets, end of year 4</td></tr>
+<tr><td><code>forecast_loan_outstanding_year_4</code></td><td>'18 Forecast balance sheet'!$E$9</td><td class="num">0</td><td>Loan outstanding, end of year 4</td></tr>
+<tr><td><code>forecast_deposits_year_4</code></td><td>'18 Forecast balance sheet'!$E$11</td><td class="num">4,036,516,249</td><td>Deposits funding the book, end of year 4</td></tr>
+<tr><td><code>forecast_book_capital_year_4</code></td><td>'18 Forecast balance sheet'!$E$17</td><td class="num">523,488,551</td><td>Capital held against the book, end of year 4</td></tr>
+<tr><td><code>forecast_net_assets_year_5</code></td><td>'18 Forecast balance sheet'!$F$13</td><td class="num">1,580,682,374</td><td>Forecast net assets, end of year 5</td></tr>
+<tr><td><code>forecast_loan_outstanding_year_5</code></td><td>'18 Forecast balance sheet'!$F$9</td><td class="num">0</td><td>Loan outstanding, end of year 5</td></tr>
+<tr><td><code>forecast_deposits_year_5</code></td><td>'18 Forecast balance sheet'!$F$11</td><td class="num">4,036,516,249</td><td>Deposits funding the book, end of year 5</td></tr>
+<tr><td><code>forecast_book_capital_year_5</code></td><td>'18 Forecast balance sheet'!$F$17</td><td class="num">523,488,551</td><td>Capital held against the book, end of year 5</td></tr>
+<tr><td><code>all_checks</code></td><td>'19 Check'!$D$17</td><td class="num">ALL CHECKS PASS</td><td>ALL CHECKS PASS when every check row passes</td></tr>
+</tbody></table>
+<h3>Line items</h3>
+<table><thead><tr><th>Name</th><th>Cell</th><th class="num">Base value</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>line_ho_role_limit_engine_and_data_team</code></td><td>'3 HR'!$D$24</td><td class="num">291,675</td><td>Staff cost per month, head office — Limit engine and data team × 25</td></tr>
+<tr><td><code>line_ho_role_model_risk</code></td><td>'3 HR'!$D$25</td><td class="num">145,830</td><td>Staff cost per month, head office — Model risk × 10</td></tr>
+<tr><td><code>line_ho_role_product</code></td><td>'3 HR'!$D$26</td><td class="num">135,421</td><td>Staff cost per month, head office — Product × 13</td></tr>
+<tr><td><code>line_running_expected_credit_loss_on_the_drawn_balance</code></td><td>'5 Running'!$C$5</td><td class="num">2.50</td><td>Running cost amount, operating unit (per_transaction) — Expected credit loss on the drawn balance</td></tr>
+<tr><td><code>line_running_computing_and_payments_in_the_account_line</code></td><td>'5 Running'!$C$6</td><td class="num">0.30</td><td>Running cost amount, operating unit (per_transaction) — Computing and payments in the account line</td></tr>
+<tr><td><code>line_running_write_off_administration_and_legal</code></td><td>'5 Running'!$C$7</td><td class="num">0.42</td><td>Running cost amount, operating unit (per_transaction) — Write-off administration and legal</td></tr>
+<tr><td><code>line_running_cell_tooling_case_system_and_telephony</code></td><td>'5 Running'!$C$8</td><td class="num">23,750</td><td>Running cost amount, operating unit (per_unit_month) — Cell tooling — case system and telephony</td></tr>
+<tr><td><code>line_running_shared_trainer</code></td><td>'5 Running'!$C$9</td><td class="num">2,083</td><td>Running cost amount, operating unit (per_unit_month) — Shared trainer</td></tr>
+<tr><td><code>line_ho_running_technology_run_the_limit_engine</code></td><td>'5 Running'!$C$15</td><td class="num">166,667</td><td>Running cost per month, head office — Technology run — the limit engine</td></tr>
+<tr><td><code>line_ho_running_fraud_monitoring_on_funded_events</code></td><td>'5 Running'!$C$16</td><td class="num">104,167</td><td>Running cost per month, head office — Fraud monitoring on funded events</td></tr>
+<tr><td><code>line_ho_running_other_head_office_people_the_all_people_total_less_the_named_teams</code></td><td>'5 Running'!$C$17</td><td class="num">37,500</td><td>Running cost per month, head office — Other head-office people (the all-people total less the named teams)</td></tr>
+<tr><td><code>line_ho_running_standby_securitisation_route_annual_upkeep</code></td><td>'5 Running'!$C$18</td><td class="num">37,500</td><td>Running cost per month, head office — Standby securitisation route — annual upkeep</td></tr>
+<tr><td><code>line_ho_running_reserve_against_the_assumed_head_office_count</code></td><td>'5 Running'!$C$19</td><td class="num">150,000</td><td>Running cost per month, head office — Reserve against the assumed head-office count</td></tr>
+<tr><td><code>line_development_stage_0_back_test_on_the_bank_s_own_account_history</code></td><td>'6 Start-up'!$B$12</td><td class="num">550,000</td><td>Development cost, head office, one-time — Stage 0 back-test on the bank's own account history</td></tr>
+<tr><td><code>line_development_outcome_ledger_build</code></td><td>'6 Start-up'!$B$13</td><td class="num">200,000</td><td>Development cost, head office, one-time — Outcome ledger build</td></tr>
+<tr><td><code>line_development_seasoning_schedule_build</code></td><td>'6 Start-up'!$B$14</td><td class="num">30,000</td><td>Development cost, head office, one-time — Seasoning schedule build</td></tr>
+<tr><td><code>line_development_credit_line_element_build_and_conformance_test</code></td><td>'6 Start-up'!$B$15</td><td class="num">75,000</td><td>Development cost, head office, one-time — Credit-line element build and conformance test</td></tr>
+<tr><td><code>line_development_funding_term</code></td><td>'6 Start-up'!$B$16</td><td class="num">39,500</td><td>Development cost, head office, one-time — Funding term</td></tr>
+<tr><td><code>line_development_migration_notices_to_the_accounts_moving_to_the_levelled_line</code></td><td>'6 Start-up'!$B$17</td><td class="num">575,000</td><td>Development cost, head office, one-time — Migration notices to the accounts moving to the levelled line</td></tr>
+<tr><td><code>line_development_stage_readings_at_each_release_gate</code></td><td>'6 Start-up'!$B$18</td><td class="num">90,000</td><td>Development cost, head office, one-time — Stage readings at each release gate</td></tr>
+<tr><td><code>line_development_standby_securitisation_route_documentation_and_set_up</code></td><td>'6 Start-up'!$B$19</td><td class="num">2,000,000</td><td>Development cost, head office, one-time — Standby securitisation route — documentation and set-up</td></tr>
+<tr><td><code>line_development_carrying_cost_of_the_pool_overlays_during_release</code></td><td>'6 Start-up'!$B$20</td><td class="num">5,200,000</td><td>Development cost, head office, one-time — Carrying cost of the pool overlays during release</td></tr>
+</tbody></table>
+<h3>Forecast inputs</h3>
+<table><thead><tr><th>Name</th><th>Cell</th><th class="num">Base value</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>in_forecast_units_open_year_1</code></td><td>'15 Roll-out'!$B$5</td><td class="num">0.76</td><td>Operating units open at the end of year 1</td></tr>
+<tr><td><code>in_forecast_head_office_share_year_1</code></td><td>'15 Roll-out'!$B$8</td><td class="num">100.0%</td><td>Share of the at-scale head office staffed and run in year 1</td></tr>
+<tr><td><code>in_forecast_equity_raised_year_1</code></td><td>'15 Roll-out'!$B$9</td><td class="num">5,000,000</td><td>Equity raised in year 1</td></tr>
+<tr><td><code>in_forecast_units_open_year_2</code></td><td>'15 Roll-out'!$C$5</td><td class="num">3</td><td>Operating units open at the end of year 2</td></tr>
+<tr><td><code>in_forecast_head_office_share_year_2</code></td><td>'15 Roll-out'!$C$8</td><td class="num">100.0%</td><td>Share of the at-scale head office staffed and run in year 2</td></tr>
+<tr><td><code>in_forecast_equity_raised_year_2</code></td><td>'15 Roll-out'!$C$9</td><td class="num">0</td><td>Equity raised in year 2</td></tr>
+<tr><td><code>in_forecast_units_open_year_3</code></td><td>'15 Roll-out'!$D$5</td><td class="num">3</td><td>Operating units open at the end of year 3</td></tr>
+<tr><td><code>in_forecast_head_office_share_year_3</code></td><td>'15 Roll-out'!$D$8</td><td class="num">100.0%</td><td>Share of the at-scale head office staffed and run in year 3</td></tr>
+<tr><td><code>in_forecast_equity_raised_year_3</code></td><td>'15 Roll-out'!$D$9</td><td class="num">0</td><td>Equity raised in year 3</td></tr>
+<tr><td><code>in_forecast_units_open_year_4</code></td><td>'15 Roll-out'!$E$5</td><td class="num">3</td><td>Operating units open at the end of year 4</td></tr>
+<tr><td><code>in_forecast_head_office_share_year_4</code></td><td>'15 Roll-out'!$E$8</td><td class="num">100.0%</td><td>Share of the at-scale head office staffed and run in year 4</td></tr>
+<tr><td><code>in_forecast_equity_raised_year_4</code></td><td>'15 Roll-out'!$E$9</td><td class="num">0</td><td>Equity raised in year 4</td></tr>
+<tr><td><code>in_forecast_units_open_year_5</code></td><td>'15 Roll-out'!$F$5</td><td class="num">3</td><td>Operating units open at the end of year 5</td></tr>
+<tr><td><code>in_forecast_head_office_share_year_5</code></td><td>'15 Roll-out'!$F$8</td><td class="num">100.0%</td><td>Share of the at-scale head office staffed and run in year 5</td></tr>
+<tr><td><code>in_forecast_equity_raised_year_5</code></td><td>'15 Roll-out'!$F$9</td><td class="num">0</td><td>Equity raised in year 5</td></tr>
+</tbody></table>
+<h3>Inputs</h3>
+<table><thead><tr><th>Name</th><th>Cell</th><th class="num">Base</th><th class="num">Low</th><th class="num">High</th><th>Tier</th><th>Source</th></tr></thead><tbody>
+<tr><td><code>in_market_total_reachable_population</code></td><td>'1 Master'!$B$7</td><td class="num">950,000</td><td class="num">850,000</td><td class="num">1,050,000</td><td>4</td><td>⚠ AOM v10 §0 — accounts on the levelled line after migration; a public-source estimate of the bank's SME account base</td></tr>
+<tr><td><code>in_market_non_viable_share</code></td><td>'1 Master'!$B$8</td><td class="num">20.0%</td><td class="num">15.0%</td><td class="num">25.0%</td><td>4</td><td>⚠ assumed — accounts with no observed flow, so no limit can be computed (C1 record, the flow-coverage input)</td></tr>
+<tr><td><code>in_market_unit_population</code></td><td>'1 Master'!$B$9</td><td class="num">316,667</td><td class="num">316,667</td><td class="num">316,667</td><td>4</td><td>⚠ AOM v10 §3b — one cell per ⚠ 333,000 accounts; 950,000 ÷ 3 cells</td></tr>
+<tr><td><code>in_market_penetration_steady_state</code></td><td>'1 Master'!$B$10</td><td class="num">30.0%</td><td class="num">30.0%</td><td class="num">30.0%</td><td>4</td><td>⚠ AOM v10 §0 — drawn accounts as a share of accounts with a limit (228,000 of 760,000); the balance band below carries the uncertainty</td></tr>
+<tr><td><code>in_market_transactions_per_customer_per_month</code></td><td>'1 Master'!$B$11</td><td class="num">20</td><td class="num">15</td><td class="num">25</td><td>4</td><td>⚠ AOM v10 §0 — average drawn balance £15–25k per drawn account; book £3.4–5.7bn</td></tr>
+<tr><td><code>in_product_0_share</code></td><td>'1 Master'!$B$12</td><td class="num">1</td><td class="num">1</td><td class="num">1</td><td></td><td></td></tr>
+<tr><td><code>in_product_0_price</code></td><td>'1 Master'!$B$13</td><td class="num">11.6667</td><td class="num">11.25</td><td class="num">11.875</td><td>3</td><td>C6 record — 14.0% simple on the daily drawn balance = £140 per £1,000 a year (band ⚠ 135–142.5), no fee; ÷ 12</td></tr>
+<tr><td><code>in_product_0_cogs</code></td><td>'1 Master'!$B$14</td><td class="num">1.875</td><td class="num">1.25</td><td class="num">2.5</td><td>4</td><td>⚠ C10 record — funding at the measured deposit cost 1.5–3.0% a year on the drawn balance (£15–30 per £1,000); ÷ 12</td></tr>
+<tr><td><code>in_hr_available_hours</code></td><td>'1 Master'!$B$15</td><td class="num">125</td><td class="num">116.7</td><td class="num">133.3</td><td>4</td><td>⚠ AOM v10 §3b — 1,400–1,600 productive hours a year per handler; ÷ 12</td></tr>
+<tr><td><code>in_role_exception_handler_monthly_cost</code></td><td>'1 Master'!$B$16</td><td class="num">4,792</td><td class="num">4,167</td><td class="num">5,417</td><td>4</td><td>⚠ AOM v10 §3b — handlers £50–65k a year all-in; ÷ 12</td></tr>
+<tr><td><code>in_role_cell_lead_monthly_cost</code></td><td>'1 Master'!$B$17</td><td class="num">6,667</td><td class="num">5,833</td><td class="num">7,500</td><td>4</td><td>⚠ AOM v10 §3b — leads £70–90k a year all-in; ÷ 12</td></tr>
+<tr><td><code>in_ho_role_limit_engine_and_data_team_monthly_cost</code></td><td>'1 Master'!$B$18</td><td class="num">11,667</td><td class="num">10,000</td><td class="num">13,333</td><td>4</td><td>⚠ AOM v10 §3c — 25 people, £3–4m a year; per person per month</td></tr>
+<tr><td><code>in_ho_role_model_risk_monthly_cost</code></td><td>'1 Master'!$B$19</td><td class="num">14,583</td><td class="num">12,500</td><td class="num">16,667</td><td>4</td><td>⚠ AOM v10 §3c — 10 people, £1.5–2m a year; per person per month</td></tr>
+<tr><td><code>in_ho_role_product_monthly_cost</code></td><td>'1 Master'!$B$20</td><td class="num">10,417</td><td class="num">8,333</td><td class="num">12,500</td><td>4</td><td>⚠ AOM v10 §3c — 13 people, £1.3–1.95m a year; per person per month</td></tr>
+<tr><td><code>in_running_expected_credit_loss_on_the_drawn_balance_amount</code></td><td>'1 Master'!$B$21</td><td class="num">2.5</td><td class="num">1.6667</td><td class="num">3.3333</td><td>4</td><td>⚠ C1 record — loss rate on the flow-underwritten pool 2–4% a year (£20–40 per £1,000); ÷ 12; unmeasured until Stage 0's back-test</td></tr>
+<tr><td><code>in_running_computing_and_payments_in_the_account_line_amount</code></td><td>'1 Master'!$B$22</td><td class="num">0.2975</td><td class="num">0.1683</td><td class="num">0.4267</td><td>4</td><td>⚠ AOM v10 §6 — computing 2.02–5.12 per £1,000 a year; ÷ 12</td></tr>
+<tr><td><code>in_running_write_off_administration_and_legal_amount</code></td><td>'1 Master'!$B$23</td><td class="num">0.4167</td><td class="num">0.25</td><td class="num">0.5833</td><td>4</td><td>⚠ AOM v10 §6 — write-off administration and legal £3–7 per £1,000 a year; ÷ 12</td></tr>
+<tr><td><code>in_running_cell_tooling_case_system_and_telephony_amount</code></td><td>'1 Master'!$B$24</td><td class="num">23,750</td><td class="num">19,167</td><td class="num">28,333</td><td>4</td><td>⚠ AOM v10 §3b — tooling £0.23–0.34m a year per cell; ÷ 12</td></tr>
+<tr><td><code>in_running_shared_trainer_amount</code></td><td>'1 Master'!$B$25</td><td class="num">2,083</td><td class="num">1,667</td><td class="num">2,500</td><td>4</td><td>⚠ AOM v10 §3b — one trainer £20–30k a year shared across the cells; ÷ 12</td></tr>
+<tr><td><code>in_ho_running_technology_run_the_limit_engine_amount</code></td><td>'1 Master'!$B$26</td><td class="num">166,667</td><td class="num">83,333</td><td class="num">250,000</td><td>4</td><td>⚠ AOM v10 §3c — £1–3m a year; ÷ 12</td></tr>
+<tr><td><code>in_ho_running_fraud_monitoring_on_funded_events_amount</code></td><td>'1 Master'!$B$27</td><td class="num">104,167</td><td class="num">41,667</td><td class="num">166,667</td><td>4</td><td>⚠ AOM v10 §3c — £0.5–2m a year; ÷ 12</td></tr>
+<tr><td><code>in_ho_running_other_head_office_people_the_all_people_total_less_the_named_teams_amount</code></td><td>'1 Master'!$B$28</td><td class="num">37,500</td><td class="num">25,000</td><td class="num">50,000</td><td>4</td><td>⚠ fin-sim input rc_people_gbp £7.6–13.55m a year (AOM v10 §3c all-people cost) less the six lines named here; ÷ 12</td></tr>
+<tr><td><code>in_ho_running_standby_securitisation_route_annual_upkeep_amount</code></td><td>'1 Master'!$B$29</td><td class="num">37,500</td><td class="num">25,000</td><td class="num">50,000</td><td>4</td><td>⚠ C10 record — a documented, never-issued master trust kept current, £0.3–0.6m a year (external); ÷ 12</td></tr>
+<tr><td><code>in_ho_running_reserve_against_the_assumed_head_office_count_amount</code></td><td>'1 Master'!$B$30</td><td class="num">150,000</td><td class="num">0</td><td class="num">300,333</td><td>4</td><td>⚠ AOM v10.1 §6 — a named reserve of 1.06 per £1,000 at the conservative corner on a £3.4bn book, released when the insider's count is read (S2 of the C10 audit); ÷ 12</td></tr>
+<tr><td><code>in_ho_dev_stage_0_back_test_on_the_bank_s_own_account_history_cost</code></td><td>'1 Master'!$B$31</td><td class="num">550,000</td><td class="num">300,000</td><td class="num">800,000</td><td>4</td><td>⚠ C3 record — the shadow run and back-test, £0.3–0.8m, no customer and no release</td></tr>
+<tr><td><code>in_ho_dev_outcome_ledger_build_cost</code></td><td>'1 Master'!$B$32</td><td class="num">200,000</td><td class="num">100,000</td><td class="num">300,000</td><td>4</td><td>⚠ C9 record — £0.1–0.3m once</td></tr>
+<tr><td><code>in_ho_dev_seasoning_schedule_build_cost</code></td><td>'1 Master'!$B$33</td><td class="num">30,000</td><td class="num">20,000</td><td class="num">40,000</td><td>4</td><td>⚠ C8 record — £20–40k once</td></tr>
+<tr><td><code>in_ho_dev_credit_line_element_build_and_conformance_test_cost</code></td><td>'1 Master'!$B$34</td><td class="num">75,000</td><td class="num">50,000</td><td class="num">100,000</td><td>4</td><td>⚠ C7 record — £50–100k once</td></tr>
+<tr><td><code>in_ho_dev_funding_term_cost</code></td><td>'1 Master'!$B$35</td><td class="num">39,500</td><td class="num">26,000</td><td class="num">53,000</td><td>4</td><td>⚠ C5 and C6 records — £26–53k once</td></tr>
+<tr><td><code>in_ho_dev_migration_notices_to_the_accounts_moving_to_the_levelled_line_cost</code></td><td>'1 Master'!$B$36</td><td class="num">575,000</td><td class="num">300,000</td><td class="num">850,000</td><td>4</td><td>⚠ C2 record — £0.3–0.85m once</td></tr>
+<tr><td><code>in_ho_dev_stage_readings_at_each_release_gate_cost</code></td><td>'1 Master'!$B$37</td><td class="num">90,000</td><td class="num">45,000</td><td class="num">135,000</td><td>4</td><td>⚠ C3 record — £45–135k once</td></tr>
+<tr><td><code>in_ho_dev_standby_securitisation_route_documentation_and_set_up_cost</code></td><td>'1 Master'!$B$38</td><td class="num">2,000,000</td><td class="num">1,000,000</td><td class="num">3,000,000</td><td>4</td><td>⚠ C10 record — £1–3m once, documented before Stage 3 and never issued</td></tr>
+<tr><td><code>in_ho_dev_carrying_cost_of_the_pool_overlays_during_release_cost</code></td><td>'1 Master'!$B$39</td><td class="num">5,200,000</td><td class="num">0</td><td class="num">10,400,000</td><td>4</td><td>⚠ C3 record — capital held against the Stage 1 book (£0–19m, 12 months) and each replica (£0–50m, 6 months) at 12–15%; a charge for capital held, not a payment</td></tr>
+<tr><td><code>in_startup_working_capital_months</code></td><td>'1 Master'!$B$40</td><td class="num">0</td><td class="num">0</td><td class="num">1</td><td>4</td><td>the charge is collected as the first slice of each receipts share from month one (C6), so the cell carries no working capital; one month held at the adverse end</td></tr>
+<tr><td><code>in_startup_investment_period_months</code></td><td>'1 Master'!$B$41</td><td class="num">60</td><td class="num">36</td><td class="num">60</td><td>4</td><td>the one-offs are spread over the five-year forecast; 36 months held at the adverse end</td></tr>
+<tr><td><code>in_finance_cost_of_capital</code></td><td>'1 Master'!$B$42</td><td class="num">13.5%</td><td class="num">12.0%</td><td class="num">15.0%</td><td>3</td><td>⚠ FIT model at C10 — cost of equity 12–15% on the capital held against the book (a bank's target return on tangible equity, public results)</td></tr>
+<tr><td><code>in_finance_tax_rate</code></td><td>'1 Master'!$B$43</td><td class="num">25.0%</td><td class="num">25.0%</td><td class="num">25.0%</td><td></td><td></td></tr>
+<tr><td><code>in_finance_ho_target_ebit</code></td><td>'1 Master'!$B$44</td><td class="num">0.0%</td><td class="num">0.0%</td><td class="num">0.0%</td><td></td><td></td></tr>
+<tr><td><code>in_finance_target_margin</code></td><td>'1 Master'!$B$45</td><td class="num">25.0%</td><td class="num">25.0%</td><td class="num">25.0%</td><td></td><td></td></tr>
+<tr><td><code>in_book_balance_per_transaction</code></td><td>'1 Master'!$B$46</td><td class="num">1,000</td><td class="num">1,000</td><td class="num">1,000</td><td>1</td><td>by definition — one transaction is £1,000 of drawn balance carried for one month</td></tr>
+<tr><td><code>in_book_capital_share_of_balance</code></td><td>'1 Master'!$B$47</td><td class="num">11.5%</td><td class="num">10.7%</td><td class="num">12.2%</td><td>2</td><td>75% risk weight (CRR Art. 123, FACT) × ⚠ 12% total capital × (1 + 10% conversion on undrawn (Basel 3.1, PRA PS9/24, FACT) × ⚠ 1.9–3.6 undrawn per drawn); the rest of the book is funded by the pool's own credit balances (C10)</td></tr>
+<tr><td><code>in_cashflow_year1_units</code></td><td>'1 Master'!$B$48</td><td class="num">0.76</td><td class="num">0.76</td><td class="num">0.76</td><td></td><td></td></tr>
+<tr><td><code>in_cashflow_year1_head_office_share</code></td><td>'1 Master'!$B$49</td><td class="num">100.0%</td><td class="num">100.0%</td><td class="num">100.0%</td><td></td><td></td></tr>
+<tr><td><code>in_cashflow_opening_balance</code></td><td>'1 Master'!$B$50</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td></td><td></td></tr>
+<tr><td><code>in_cashflow_loan_amount</code></td><td>'1 Master'!$B$51</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td></td><td></td></tr>
+<tr><td><code>in_cashflow_loan_rate_annual</code></td><td>'1 Master'!$B$52</td><td class="num">0.0%</td><td class="num">0.0%</td><td class="num">0.0%</td><td></td><td></td></tr>
+<tr><td><code>in_cashflow_loan_term_months</code></td><td>'1 Master'!$B$53</td><td class="num">12</td><td class="num">12</td><td class="num">12</td><td></td><td></td></tr>
+<tr><td><code>in_cashflow_other_equity</code></td><td>'1 Master'!$B$54</td><td class="num">5,000,000</td><td class="num">5,000,000</td><td class="num">5,000,000</td><td></td><td></td></tr>
+<tr><td><code>in_cashflow_stress_revenue_reduction</code></td><td>'1 Master'!$B$55</td><td class="num">10.0%</td><td class="num">10.0%</td><td class="num">10.0%</td><td></td><td></td></tr>
+</tbody></table>
+</div>
+
+</div>
+</body>
+</html>
